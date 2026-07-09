@@ -75,10 +75,20 @@ return (
 
       <div className='recover'>
   <div style={{height:'50%',display:'flex',justifyContent:'center',color:'white'}}>Frogot Password ?</div>
-  <button className='login-word'>Recover</button>
+  <button 
+  onClick={()=>navigat('/recover')}
+  className='login-word'>Recover</button>
 </div>
 
 </div>
+ <footer>
+        
+          <div className="foting" >
+            <img style={{width:'50%'}} src="/dots.gif" />
+          </div>
+          
+        
+      </footer>
 
 </div>)
 }

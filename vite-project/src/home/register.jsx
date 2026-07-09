@@ -109,7 +109,14 @@ return (<div className='body-2'>
       </button>
       </div>
 </form>
-
+ <footer>
+        
+          <div className="foting" >
+            <img style={{width:'50%'}} src="/dots.gif" />
+          </div>
+          
+        
+      </footer>
 </div>)
 }
 

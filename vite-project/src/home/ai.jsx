@@ -10,6 +10,7 @@ function Aimode({mode,value,translate}){
       const [message,setmessage]=useState({user:''})
       const [choosen,setchoosen]=useState()
       const [trueimg,settrueimg]=useState(false)
+      const [email,setemail]=useState(false)
       const checker = useStore(state=>state.user)
 
       const [msgx,setmsgx]=useState({first:`${translate?'':'welcom'} ${userinfo.firstname}${translate?'さん':''}`,sconde:`${!translate?'To Ai Search':'AI 検索へようこそ！'}`})
@@ -19,6 +20,7 @@ function Aimode({mode,value,translate}){
             Airef.current?.scrollIntoView({behavior:'smooth'})
         },[display])
     async function sendQuastion(){
+        setemail(!email)
       if(!message.user) return console.log('no message')
         const user=message.user
     setdisplay(pre=>[...pre,{userText:user}])
@@ -26,7 +28,6 @@ function Aimode({mode,value,translate}){
         try {
             const res=await axios.post(`/api/quastion/${userinfo.id}`,{message},{withCredentials:true})
             const pictures= res?.data
-            console.log('pic',pictures)
             if (pictures.length!==0){
                 settrueimg(true)
             }
@@ -38,7 +39,8 @@ function Aimode({mode,value,translate}){
            const img = fixpath[0]
            setimages(img)
             setdisplay(pre=>[...pre,{ai:fixpath}])
-            
+                    setemail(!email)
+
             
 
         } catch (error) {
@@ -134,7 +136,7 @@ function Aimode({mode,value,translate}){
                         <button 
                         
                        onClick={sendQuastion}
-                        className='button'>{translate?'送信':'send'}</button>
+                        className='button'>{email?<img className='email-icon' src='/email.gif' />:(translate?'送信':'send')}</button>
                     </div>
                  </div>
                 </div>

@@ -2,7 +2,7 @@ import {useEffect, useRef, useState } from 'react';
 import './dashboard.css';
 import {Progress} from '@chakra-ui/react';
 import CountUp from '../component/CountUp'
-import { motion } from 'framer-motion';
+import {  motion } from 'framer-motion';
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import useStore from './zustand';
 import {useNavigate } from 'react-router';
@@ -39,12 +39,12 @@ import 'react-photo-view/dist/react-photo-view.css';
       useEffect(()=>{
       if(!translate){
         setdeletecancel({
-            del:'DELETE PICTURES',
+            del:'Delete Pictures',
             cen:'CANCEL'})
     }else{
         setdeletecancel({
             del:'画像を削除',
-            cen:'ファイルをアップロード'})
+            cen:'キャンセル'})
     }
   },[translate])
     if(!userInfo){
@@ -73,7 +73,8 @@ import 'react-photo-view/dist/react-photo-view.css';
   { jp:'すべて削除'},
   { jp:'追加'},
   { jp:'アップロード'},
-  { jp: 'ログアウト' }
+  { jp: 'ログアウト' },
+   {jp:'最大容量：5GB'}
 ]
 
 
@@ -169,12 +170,12 @@ setfile(Object.values(file).filter(item=>( item.name!==currentImg)
 function galeryOfpictures(){
     
     const images=userInfo?.allImg
-    console.log('gelary',userInfo)
-    console.log('imagessssssss',images)
-    console.log(viewall,'viw')
+   
          setviewall(images)
     setgalery(!galery)
     setdeleteimg(!deleteimg)
+    setselectTodelete(!selectTodelete)
+ setdeleteimage('');
     
    
 }
@@ -305,7 +306,7 @@ return(<>
             <button
            
              onClick={getpic}
-            className='btn-img-hundel'>{translate?japanese[15].jp:'UPLOAD'}</button>
+            className='btn-img-hundel'>{translate?japanese[16].jp:'UPLOAD'}</button>
         </div>
        </div>:''}
       
@@ -322,19 +323,18 @@ return(<>
         </div>
         <div className='picture-info'>
             <div className='progress'>
-                <p className={AI===false?'text':'text2'}>{translate?japanese[0].jp:'cloud storage'}</p>
-        <CircularProgress className='progress-icon' style={{display:'flex',alignItems:'center',justifyContent:'center',margin:'0'}} value={cloud/1000} size="90%" 
-        color={AI===false?'rgb(25, 135, 224)':'pink'}>
+                <p className={AI===false?'text':'text2'}>{translate?japanese[0].jp:'Cloud Storage'}</p>
+        <CircularProgress className='progress-icon' style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'6%'}} value={cloud/1000} size="100%" 
+        color={AI===false?'rgb(138, 143, 285)':'pink'}>
         <CircularProgressLabel> <p className='pro-txt'>{!cloud?0:(cloud/1000).toFixed(2)}%</p></CircularProgressLabel>
             </CircularProgress>     
             </div>
         
     </div>
         <div className='still'>
-           <div className={AI===false?'first-still':'first-still-2'}>
-             <p className={AI===false?'images-word':'images-word-2'}>{translate?japanese[1].jp:'ALL PICTURES'}</p>
+           <div className={'first-still'}>
+             <p className={'images-word'}>{translate?japanese[1].jp:'All Pictures'}</p>
                    <CountUp
-                  
                     from={0}
                     to={userInfo.allImg?userInfo.allImg.length:0}
                     separator=","
@@ -344,17 +344,24 @@ return(<>
                     delay={0.5}
                     /> 
            </div>
+           <div className='therd-still'><p className='max'>{translate?japanese[18].jp:'Max Capacity : 5 GB'}</p></div>
                      <div className='delete-pictures-div'>
                         {deleteimg===true && AI===false?<button 
                         onClick={deletemode}
                         className='deletebtn'>{deleteimage.length===0?deletecancel.del:deletecancel.cen}</button>:''}
                      </div>
+                     
         </div>
         <div className='logout'>
             <button
             onClick={logout}
-            className='logout-btn'><p className='log-text'>{translate?japanese[16].jp:'logout'}</p></button>
+            className='logout-btn'><p className='log-text'>{translate?japanese[17].jp:'logout'}</p></button>
+            <div className='robot-icon'>
+          <img className='ai-img' src='/dots.gif' />
+          <p className='powered'>Powered by AI</p>
         </div>
+        </div>
+        
     </div>
             {/* middel page */}
         <div className='middel-page'>
@@ -428,10 +435,10 @@ return(<>
                 {deleteimage.length>0&&AI===false?<div className='delete-box'>
                     <button 
                          onClick={deleteinTheback}
-                        className='delete-1-pic'>{translate?japanese[11].jp:'delete'}</button>
+                        className='delete-1-pic'>{translate?japanese[13].jp:'Delete'}</button>
                     <button
                     onClick={()=>togialDeleteRef.current.showModal()}
-                    className='delete-all-pic'>{translate?japanese[12].jp:'delete all'}</button>
+                    className='delete-all-pic'>{translate?japanese[14].jp:'Delete All'}</button>
                 </div>:''}
                 
              
@@ -441,14 +448,14 @@ return(<>
 </motion.div>
                          <dialog className='dialog-delete' ref={togialDeleteRef}>
                     <div className='dialog-note'>
-                       <p className='delete-all-text'> Delete all ?</p>
+                       <p className='delete-all-text'> {translate?'すべて削除 ?':'Delete all /'}</p>
                     </div>
                     <div className='dialog-btn' >
                         <button
                         onClick={deleteimageInbackend}
-                        className='confirm-btn'>yes</button>
+                        className='confirm-btn'>{translate?'はい':'yes'}</button>
                         <button onClick={()=>togialDeleteRef.current.close()}
-                         className='confirm-btn'>no</button>
+                         className='confirm-btn'>{translate?'いいえ':'no'}</button>
                     </div>
                     </dialog>
                    

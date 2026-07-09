@@ -36,17 +36,18 @@ width: 30rem;
   padding: 1%;
 }
 .home-btn{
-  background-color: #f1eaf1;
-  color: #000000;
-  padding: 0.7%;
-  width: 10%;
+ background: #DCFFBD;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #CC86D1, #DCFFBD);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #CC86D1, #DCFFBD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      color: #000000;
+  padding: 0.6%;
+  font-size: clamp(8px,1vw,2vw);
+  width: 13%;
   border-radius: 20px;
 
 }
 .home-btn:hover{
  background: #DCFFBD;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #CC86D1, #DCFFBD);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #CC86D1, #DCFFBD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     
   color: #6365ee;
       box-shadow: 0px 0px 15px 5px rgb(196, 227, 233);
@@ -159,9 +160,9 @@ height: 10%;
 .big-box::before {
   content: "";
   position: absolute;
-  inset: 1px;               /* سمك الإطار */
+  inset: 1px;               
   border-radius: inherit;
-  padding: 2px;              /* سماكة الـ border */
+  padding: 2px;              
 
   background: linear-gradient(
     45deg,
@@ -311,6 +312,21 @@ background-color: #0000ff;
   align-items: center;
   flex-direction: column;
   
+}
+.foting{
+  width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+  
+  transform: translateX(550px);
+  animation: icon ease 2s forwards;
+}
+@keyframes icon {
+to{
+
+  transform: translateX(10px);
+}
 }
 @media (max-width: 768px) {
 .textM{

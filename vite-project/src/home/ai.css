@@ -17,7 +17,7 @@
 }
 
 .ai-mode{
-    opacity: 0;
+    opacity: 1;
    
     object-fit: cover;
     height: 100%;
@@ -52,8 +52,8 @@
 
 .ai-place{
     display: flex;
-
-    width: 10%;
+    
+    width: 13%;
     padding: 0%;
     height: 10%;
     margin: 1%;
@@ -77,8 +77,8 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
   
     
 background: #0f0c29;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29); 
+background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
     margin-left: 10px;
     animation: stratch ease 0.5s forwards;
     box-shadow: 0px 0px 6px 4px rgb(23, 19, 48);
@@ -112,6 +112,7 @@ width: 94%;
 overflow-y: scroll;
 scrollbar-width: none;
 
+
 }
 .message::before{
     height: 88%;
@@ -136,17 +137,19 @@ padding-left: 2%;
 color: aliceblue;
 height: 100%;
 background-color: #0f0c29;
-border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;
+border-radius: 10px;
 
 }
 .button{
     width: 20%;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1%;
     height: 100%;
     background-color: rgb(0, 0, 0);
-    border-top-right-radius: 10px;
-border-bottom-right-radius: 10px;
+    border-radius: 10px;
 }
 button:active{
     transform: scale(0.98);
@@ -156,6 +159,7 @@ button:active{
 .answer-div{
     display: flex;
     align-items: center;
+    
 }
 .ai-picture{
     display: flex;
@@ -297,9 +301,12 @@ height: 90%;
  justify-content:center;
  height:100%
 }
+.email-icon{
+    width: 80%;
+    rotate: -20deg;
+}
 
-
- @media screen and (max-width: 680px) {
+ @media screen and (max-width: 685px) {
  .other-img{
     display: grid;
     grid-template-columns: repeat(1,1fr);
@@ -308,6 +315,33 @@ height: 90%;
     scrollbar-width: none;
     gap: 0;
     
+    
+}
+.ai-picture{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 99.6%;
+    height: 65vh;
+    padding: 0%;
+    margin-left: 0.2%;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    box-shadow: 0px 0px 4px 2px rgb(78, 64, 139);
+    border-radius: 10px;
+    
+    
+}
+.ai-mode{
+    opacity: 1;
+   
+    object-fit: cover;
+    height: 74%;
+}
+.ai-place{
+    width: 0px;
+
+
 }
 .small-btn-img{
   width:100%;
@@ -344,8 +378,8 @@ flex-direction: column;
 .input{
 width: 100%;
 padding-left: 10%;
-color: aliceblue;
-height: 100%;
+color: rgb(0, 0, 0);
+height: 110%;
 background-color: #f5f5fa;
 border-radius: 5px;
 
@@ -355,7 +389,7 @@ border-radius: 5px;
     width: 100%;
     color: white;
     height: 100%;
-    background-color: rgb(184, 28, 223);
+    background-color: rgb(78, 128, 221);
     border-radius: 4px;
   
 }
@@ -367,7 +401,7 @@ button:active{
     align-items: center;
     justify-content: center;
     margin-bottom: 2%;
-    font-size: 2vw;
+    font-size: 3vw;
     text-align: center;
 }
 .seconde-word{
@@ -375,7 +409,65 @@ button:active{
     align-items: center;
     justify-content: center;
     margin-bottom: 2%;
-    font-size: 2vw;
+    font-size: 3vw;
     text-align: center;
+}
+
+.light{
+    width: 7.5%;
+   opacity: 0.8;
+    transform: translate3d(280px,-180px,100px);
+    animation: light ease 1.7s forwards;
+}
+@keyframes light{
+    to{
+        opacity: 1;
+        
+        transform:translate3d(240px,10px,0);
+        height: 10%;
+        width: clamp(50px,8vw,10vw);
+       
+        
+    }
+}
+.first{
+    width: 100%;
+}
+.second{
+    width: 0%;
+}
+.info{
+    width: 80%;
+    height: 8vh;
+  
+    
+background: #0f0c29;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29); 
+background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    margin-left: 10px;
+    animation: stratch ease 0.5s forwards;
+    box-shadow: 0px 0px 6px 4px rgb(23, 19, 48);
+    
+   
+}
+@keyframes stratch{
+    to{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 2%;
+ width: 100%;
+ margin-top: 2%;
+    height: 85vh;
+ border-radius: 10px;
+background: #0f0c29;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    margin-left: 10px;
+    
+    
+    
+    }
 }
  }

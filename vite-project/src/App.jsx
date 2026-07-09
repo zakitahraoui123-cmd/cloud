@@ -5,6 +5,7 @@ import Welcome from "./home/welcom";
 import Dashboard from "./home/dashboard";
 import RollHome from "./home/RollHome";
 import VerifyCode from "./home/OTP";
+import Recover from "./home/recover";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path ='/Welcome' element={<Welcome />} />
         <Route path ='/dash' element={<Dashboard />} />
         <Route path="/OTP" element={<VerifyCode />} />
+        <Route path="/recover" element={<Recover />} />
     </Routes>
     
     </>
