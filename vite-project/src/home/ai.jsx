@@ -136,7 +136,7 @@ function Aimode({mode,value,translate}){
                         <button 
                         
                        onClick={sendQuastion}
-                        className='button'>{email?<img className='email-icon' src='/email.gif' />:(translate?'送信':'send')}</button>
+                        className='button'>{email?<img className='email-iconai' src='/email.gif' />:(translate?'送信':'send')}</button>
                     </div>
                  </div>
                 </div>
