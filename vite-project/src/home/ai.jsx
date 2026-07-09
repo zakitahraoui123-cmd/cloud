@@ -20,16 +20,20 @@ function Aimode({mode,value,translate}){
             Airef.current?.scrollIntoView({behavior:'smooth'})
         },[display])
     async function sendQuastion(){
-        setemail(!email)
+        setemail(true)
       if(!message.user) return console.log('no message')
         const user=message.user
     setdisplay(pre=>[...pre,{userText:user}])
         setmessage({user:""})
         try {
-            const res=await axios.post(`/api/quastion/${userinfo.id}`,{message},{withCredentials:true})
+            const res=await axios.post(`http://localhost:4000/api/quastion/${userinfo.id}`,{message},{withCredentials:true})
             const pictures= res?.data
+            
             if (pictures.length!==0){
                 settrueimg(true)
+                setemail(false)
+
+                  
             }
            
             const fixpath =pictures.map(item=>(
@@ -39,7 +43,7 @@ function Aimode({mode,value,translate}){
            const img = fixpath[0]
            setimages(img)
             setdisplay(pre=>[...pre,{ai:fixpath}])
-                    setemail(!email)
+                  
 
             
 
@@ -48,7 +52,8 @@ function Aimode({mode,value,translate}){
         }
     }
     
-       setTimeout(() => {
+   useEffect(()=>{
+        setTimeout(() => {
        if(translate){
          setmsgx({
             first:'画像を検索するには、',
@@ -61,8 +66,10 @@ function Aimode({mode,value,translate}){
         })
        }
        }, 2500);
-     
+   },[translate])
     
+    
+     
     return(
           <div className='aiX'>
         
@@ -94,13 +101,15 @@ function Aimode({mode,value,translate}){
                                  <img style={{width:'19%',position:'relative',left:'-6px'}} src='dots.gif' />
                                  
                                     <div className='other-img'>
+                                         {window.innerWidth<685?<p className='top'>TOP RESULTE</p>:''}
                                         {item?.ai?.map((e)=>(
                                                   <button 
                                     
                                   value={e}
                                   onClick={()=>setchoosen(e)}
                                   className='small-btn-img'>
-                                    <img className='small-img' src={`/${e}`}/>
+                                   
+                                    <img className='small-img' src={`http://localhost:4000/${e}`}/>
                                   </button>
                                         ))}
                                   
@@ -136,7 +145,11 @@ function Aimode({mode,value,translate}){
                         <button 
                         
                        onClick={sendQuastion}
-                        className='button'>{email?<img className='email-iconai' src='/email.gif' />:(translate?'送信':'send')}</button>
+                        className='button'>
+                            {email===true?
+                            (window.innerWidth>685?<img className='email-iconai' src='/email.gif' />:'')
+                            :(translate?'送信':'send')}
+                            </button>
                     </div>
                  </div>
                 </div>

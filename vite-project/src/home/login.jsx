@@ -14,7 +14,7 @@ function Login(){
   async function userLogin(){
     if (!input.email||!input.password) return setmsgx('please feil up all the field')
 try {
-     const res= await axios.post('/api/login',input,{withCredentials:true})
+     const res= await axios.post('http://localhost:4000/api/login',input,{withCredentials:true})
      const message=res.data
      
      if(message.id){
@@ -74,7 +74,7 @@ return (
       <p className='err-text'>{emailCheck}</p>
 
       <div className='recover'>
-  <div style={{height:'50%',display:'flex',justifyContent:'center',color:'white'}}>Frogot Password ?</div>
+  <div style={{height:'50%',display:'flex',fontSize:'18px',justifyContent:'center',color:'white'}}>Forgot Password ?</div>
   <button 
   onClick={()=>navigat('/recover')}
   className='login-word'>Recover</button>

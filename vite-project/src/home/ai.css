@@ -311,11 +311,19 @@ height: 90%;
     display: grid;
     grid-template-columns: repeat(1,1fr);
     width: 90%;
+    margin-right: 3%;
     overflow-y: scroll;
     scrollbar-width: none;
+    height: 100%;
     gap: 0;
     
-    
+}
+
+.small-img{
+width:100%;
+
+border-radius: 10px;
+height:30vh;
 }
 .ai-picture{
     display: flex;
@@ -344,10 +352,18 @@ height: 90%;
 
 }
 .small-btn-img{
-  width:100%;
+    
+  width:80%;
     padding:0;
+    
     margin-bottom:4%;
     height:auto;
+}
+.top{
+    color: #f5f5fa;
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-left: 25%;
 }
 .ai-result{ 
  display:flex;
@@ -368,20 +384,22 @@ height: 90%;
 
 
 .input-box{
-width: 94%;
-margin-top: 1%;
-height: 9%;
+width: 100%;
+height: 14%;
 display: flex;
 flex-direction: column;
+align-items: start;
+justify-content: start;
+background-color: brown;
 
 }
 .input{
+  
 width: 100%;
-padding-left: 10%;
 color: rgb(0, 0, 0);
-height: 110%;
+height: 100%;
 background-color: #f5f5fa;
-border-radius: 5px;
+border-radius: 3px;
 
 
 }
@@ -390,7 +408,10 @@ border-radius: 5px;
     color: white;
     height: 100%;
     background-color: rgb(78, 128, 221);
-    border-radius: 4px;
+    margin-left: 0%;
+    border-radius: 3px;
+
+    
   
 }
 button:active{

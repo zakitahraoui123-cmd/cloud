@@ -27,7 +27,7 @@ export default function VerifyCode() {
      async function checkotp(){
       if (!code) return
       try {
-       const responde = await axios.post('/api/register',
+       const responde = await axios.post('http://localhost:4000/api/register',
        { userZu:userZu,
         code:code },
        { withCredentials:true,

@@ -97,7 +97,7 @@ import 'react-photo-view/dist/react-photo-view.css';
        }
      try {
        
-           const respond= await axios.post(`/api/upload/${userInfo.id}`,format,{
+           const respond= await axios.post(`http://localhost:4000/api/upload/${userInfo.id}`,format,{
             withCredentials:true,
             onUploadProgress:(progressEvent)=>{
                 const load=progressEvent.loaded
@@ -138,7 +138,7 @@ import 'react-photo-view/dist/react-photo-view.css';
 
     async function logout(){
 
-        const respond= await axios.get('/api/logout',{withCredentials:true})
+        const respond= await axios.get('http://localhost:4000/api/logout',{withCredentials:true})
         const logoutCheack=respond.data.message
         if(logoutCheack==='token delete'){ 
             navigat('/login')
@@ -197,7 +197,7 @@ function check(e){
 async function deleteimageInbackend(){
     if(!userInfo.id) return
   try {
-      const response = await axios.delete('/api/deleteall',{
+      const response = await axios.delete('http://localhost:4000/api/deleteall',{
         data:{id:userInfo.id},
         withCredentials:true})
         if(response.data.pictures_path==='' && response.data.size===0){
@@ -219,7 +219,7 @@ async function deleteimageInbackend(){
 async function deleteinTheback(){
     if (!deleteimage) return 
     console.log('delete',deleteimage)
-   try{ const res =await axios.delete('/api/delete',{
+   try{ const res =await axios.delete('http://localhost:4000/api/delete',{
         
         data:{id:userInfo.id,deleteimage},
         withCredentials:true})

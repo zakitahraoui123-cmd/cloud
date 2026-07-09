@@ -26,7 +26,7 @@ export default function Recover() {
      async function checkotp(){
       if (!email) return
       try {
-       const responde = await axios.post('/api/recover',email,{withCredentials:true})    
+       const responde = await axios.post('http://localhost:4000/api/recover',email,{withCredentials:true})    
       if(responde.data==='we send the code'){
         setcodesende('1')
       }
