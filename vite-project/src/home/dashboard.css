@@ -250,6 +250,7 @@ color: rgb(221, 200, 200);
     box-shadow: 0px 0px 20px 1px rgb(189, 102, 196);
     
 }
+
 .checkbox{
     position: absolute;
 
@@ -491,22 +492,7 @@ font-size: 15px;
     width: 3em;
     
 }
-.all-pic{
-     display:grid;
-    grid-template-columns: repeat(4,1fr);
-    align-content: first baseline;
 
-    overflow-y: scroll;
-    scrollbar-width: none;
-    height: 90%;
-    
-    padding: 1%;
-     backdrop-filter: blur(6px);
-    margin: 0.3%;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px 1px rgb(189, 102, 196);
-    
-}
 .picture-box{
     width: 100%;
     height: 17vh;
