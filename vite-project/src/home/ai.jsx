@@ -109,7 +109,7 @@ function Aimode({mode,value,translate}){
                                   onClick={()=>setchoosen(e)}
                                   className='small-btn-img'>
                                    
-                                    <img className='small-img' src={`/my-uploads/${e}`}/>
+                                    <img className='small-img' src={`/${e}`}/>
                                   </button>
                                         ))}
                                   
@@ -162,7 +162,7 @@ function Aimode({mode,value,translate}){
                         {trueimg===true? 
                          <div className='ai-result'> 
                             <p style={{color:'white'}}>{choosen?'':topResult}</p>
-                             <img className='result-img' src={`/my-uploads/${choosen?choosen:images}`} />
+                             <img className='result-img' src={`/${choosen?choosen:images}`} />
                             </div>
                            
                         :''}
