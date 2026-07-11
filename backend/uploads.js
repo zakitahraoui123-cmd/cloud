@@ -63,12 +63,14 @@ let allStorage=0
 for(let i=0;i<file.length;i++){
     let single=file[i]
     const path =single.path.slice(11)
-    const size =Number((single.size/ 1024 / 1024).toFixed(2))
+    const size =Number((single.size/ (1024*1024)).toFixed(2))
     allStorage=size+allStorage
 
     const insertdata= await pool.query('INSERT INTO user_data (user_info_id,pictures_path,picture_size) VALUES ($1,$2,$3)',[userId,path,size])
 
 }
+console.log('all storage',allStorage)
+
 try {
     
     const capacity=await pool.query('UPDATE cloud_storage SET storage= storage + $1 WHERE user_cloud_id=$2 RETURNING storage',[allStorage,userId])

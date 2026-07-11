@@ -8,7 +8,7 @@ import useStore from './zustand';
 import {useNavigate } from 'react-router';
 import axios from 'axios';
 import Aimode from './ai';
-
+import imageCompression from 'browser-image-compression';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 
@@ -34,7 +34,7 @@ import 'react-photo-view/dist/react-photo-view.css';
     const updatepictureZU=useStore(state=>state.updateImg)
     const updateStorage=useStore(state=>state.updateStorage)
     const deleteinfo =useStore(state=>state.logout)
-    const cloud =userInfo?.userStorage||null
+    const cloud =userInfo?.userStorage||0.00
     console.log(cloud)
       useEffect(()=>{
       if(!translate){
@@ -79,11 +79,8 @@ import 'react-photo-view/dist/react-photo-view.css';
 
 
 
-    const format= new FormData();
-    for(let i=0 ;i<file.length;i++){
-        format.append('picture',file[i])
+  
 
-    }
     async function hundelfile(){
         inputref.current.click()
             
@@ -96,30 +93,55 @@ import 'react-photo-view/dist/react-photo-view.css';
        return console.log('user not loaded yet')
        }
      try {
-       
-           const respond= await axios.post(`http://localhost:4000/api/upload/${userInfo.id}`,format,{
+       const  options  =  { 
+        maxSizeMB : 1 , 
+        maxWidthOrHeight : 1920 , 
+        useWebWorker : true , 
+        fileType:'image/webp', 
+        initialQuality: 0.8
+  } 
+      const  compressedFile  = await Promise.all(
+        file.map(item=>{
+          return imageCompression(item,options ) ; 
+        })
+      )
+
+    const format= new FormData();
+   for(let i=0 ;i<compressedFile.length;i++){
+        format.append('picture',compressedFile[i])
+
+    }
+     
+    console.log('file',format.getAll('picture'))
+
+           const respond= await axios.post(`/api/upload/${userInfo.id}`,format,{
             withCredentials:true,
             onUploadProgress:(progressEvent)=>{
                 const load=progressEvent.loaded
                 const total=progressEvent.total
-                const prox=(load*100/total)
+                const prox=(load*100/total).toFixed(2)
                   settotalLoad(prox)
-            if(prox===100){
-                setTimeout(()=>{
+                  
+          
+              
+            }
+          
+       
+        })
+       
+        const images=respond?.data?.allImg
+         if(images){
+               
+                console.log('ok 100')
                     settotalLoad(0)
                     setfile([])
                     format.delete('picture')
                     togialRef.current.close()
                     inputref.current.value=''
            
-                },3000)
-            }
-              
-            }
-       
-        })
-        const images=respond?.data?.allImg
-      console.log('images get pic router',images)
+                
+            
+         }
          
          updatepictureZU(images)
         const updateStorageX=respond?.data?.userStorage
@@ -138,7 +160,7 @@ import 'react-photo-view/dist/react-photo-view.css';
 
     async function logout(){
 
-        const respond= await axios.get('http://localhost:4000/api/logout',{withCredentials:true})
+        const respond= await axios.get('/api/logout',{withCredentials:true})
         const logoutCheack=respond.data.message
         if(logoutCheack==='token delete'){ 
             navigat('/login')
@@ -152,7 +174,7 @@ function getdialog(){
 
     
 const totalSize=Object.values(file)?.reduce((sum,item)=>{
-    return Number((sum+item.size/ 1024 / 1024).toFixed(2))
+    return Number((sum+item.size/ (1024*1024)).toFixed(2))
 },0)
 
 const fileVlx=Object.values(file)
@@ -174,8 +196,9 @@ function galeryOfpictures(){
          setviewall(images)
     setgalery(!galery)
     setdeleteimg(!deleteimg)
-    setselectTodelete(!selectTodelete)
- setdeleteimage('');
+    setselectTodelete(false)
+    setdeleteimage('')
+ 
     
    
 }
@@ -197,7 +220,7 @@ function check(e){
 async function deleteimageInbackend(){
     if(!userInfo.id) return
   try {
-      const response = await axios.delete('http://localhost:4000/api/deleteall',{
+      const response = await axios.delete('/api/deleteall',{
         data:{id:userInfo.id},
         withCredentials:true})
         if(response.data.pictures_path==='' && response.data.size===0){
@@ -219,7 +242,7 @@ async function deleteimageInbackend(){
 async function deleteinTheback(){
     if (!deleteimage) return 
     console.log('delete',deleteimage)
-   try{ const res =await axios.delete('http://localhost:4000/api/delete',{
+   try{ const res =await axios.delete('/api/delete',{
         
         data:{id:userInfo.id,deleteimage},
         withCredentials:true})
@@ -324,9 +347,9 @@ return(<>
         <div className='picture-info'>
             <div className='progress'>
                 <p className={AI===false?'text':'text2'}>{translate?japanese[0].jp:'Cloud Storage'}</p>
-        <CircularProgress className='progress-icon' style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'6%'}} value={cloud/1000} size="100%" 
+        <CircularProgress className='progress-icon' style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'6%'}} value={(cloud*100)/5000} size="100%" 
         color={AI===false?'rgb(138, 143, 285)':'pink'}>
-        <CircularProgressLabel> <p className='pro-txt'>{!cloud?0:(cloud/1000).toFixed(2)}%</p></CircularProgressLabel>
+        <CircularProgressLabel> <p className='pro-txt'>{!cloud?'0.00':((cloud*100)/5000).toFixed(2)}%</p></CircularProgressLabel>
             </CircularProgress>     
             </div>
         
@@ -413,7 +436,6 @@ return(<>
               )}
 
               <img
-                alt='Image'
                 onClick={() => setimageUrl(item)}
                 className='image'
                 src={`/my-uploads/${item.pictures_path}`}

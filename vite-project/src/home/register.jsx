@@ -32,7 +32,7 @@ if(!userinfo.lastname||!userinfo.firstname||!userinfo.phone||!userinfo.email||!u
     return seterrtext('password must be more the 8 character')
 }
 try {
-    const res= await axios.post('http://localhost:4000/api/sendOtp',{email:userinfo.email},{withCredentials:true})
+    const res= await axios.post('/api/sendOtp',{email:userinfo.email},{withCredentials:true})
     console.log(res)
     setTimeout(() => {
             navigat('/OTP')

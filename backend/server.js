@@ -11,6 +11,9 @@ import userQuastions from "./quation.js";
 import deleteRouter from "./delete.js";
 import deleteAllRouter from "./deleteAllRouter.js";
 import sendEmail from "./checkOtpRouter.js";
+import recoverRouter from "./recovery.js";
+import updatepasswordRoute from "./updatePasswordRouter.js";
+import newPasswordRouter from "./newPassword.js";
 
 
 const app =express();
@@ -30,6 +33,9 @@ app.use('/api',userQuastions)
 app.use('/api',deleteRouter)
 app.use('/api',deleteAllRouter)
 app.use('/api',sendEmail)
+app.use('/api',recoverRouter)
+app.use('/api',updatepasswordRoute)
+app.use('/api',newPasswordRouter)
 async function start (){
 try {
     const res= await pool.query("SELECT NOW()")

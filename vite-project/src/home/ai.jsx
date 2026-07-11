@@ -26,7 +26,7 @@ function Aimode({mode,value,translate}){
     setdisplay(pre=>[...pre,{userText:user}])
         setmessage({user:""})
         try {
-            const res=await axios.post(`http://localhost:4000/api/quastion/${userinfo.id}`,{message},{withCredentials:true})
+            const res=await axios.post(`/api/quastion/${userinfo.id}`,{message},{withCredentials:true})
             const pictures= res?.data
             
             if (pictures.length!==0){
@@ -109,7 +109,7 @@ function Aimode({mode,value,translate}){
                                   onClick={()=>setchoosen(e)}
                                   className='small-btn-img'>
                                    
-                                    <img className='small-img' src={`http://localhost:4000/${e}`}/>
+                                    <img className='small-img' src={`/my-uploads/${e}`}/>
                                   </button>
                                         ))}
                                   
@@ -162,7 +162,7 @@ function Aimode({mode,value,translate}){
                         {trueimg===true? 
                          <div className='ai-result'> 
                             <p style={{color:'white'}}>{choosen?'':topResult}</p>
-                             <img className='result-img' src={`${choosen?choosen:images}`} />
+                             <img className='result-img' src={`/my-uploads/${choosen?choosen:images}`} />
                             </div>
                            
                         :''}

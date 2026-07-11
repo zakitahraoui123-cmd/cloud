@@ -57,7 +57,7 @@ background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+
     margin-top: 4%;
 }
 .user-name{
-    font-size: clamp(8px,1.5vw,7vw);
+    font-size: clamp(1.3vw,1.8vw,7vw);
 font-family:"Inter", sans-serif;
     color: rgb(61, 60, 60);
 }
@@ -245,7 +245,7 @@ color: rgb(221, 200, 200);
     
     padding: 1%;
      backdrop-filter: blur(6px);
-    margin: 0.3%;
+    margin: 0.6%;
     border-radius: 10px;
     box-shadow: 0px 0px 20px 1px rgb(189, 102, 196);
     
@@ -259,16 +259,7 @@ color: rgb(221, 200, 200);
     
 }
 
-.picture-box{
-    width: 11vw;
-    height: 20vh;
-    border-radius: 10px;
-    margin-right: 1%;
-    margin-bottom: 5%;
-    transition: ease 0.4s;
-    
 
-}
 
 .image{
     object-fit:cover;
@@ -278,12 +269,11 @@ color: rgb(221, 200, 200);
     width: 100%;
     border-radius: 10px;
     transition: pic ease 2s;
+    
      
     
 }
-.image:hover{
-    object-fit: contain;
-}
+
 
 
 .search-btn{
@@ -305,6 +295,21 @@ color: rgb(221, 200, 200);
     animation: icon 4s ease forwards;
     object-fit: cover;
     height: 100%;
+}
+
+.picture-box{
+    width: 98%;
+    height: 20vh;
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    transition: ease 0.4s;
+    
+
+}
+.picture-box:hover{
+    transform: scale(1.04);
 }
 
 .pro-txt{
@@ -345,6 +350,32 @@ color: #fffcdc;
     height: 100%;
     backdrop-filter: blur(2px);
 }   
+.all-pic{
+     display:grid;
+    grid-template-columns: repeat(4,1fr);
+    align-content: first baseline;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    height: 90%;
+    
+    padding: 1%;
+     backdrop-filter: blur(6px);
+    margin: 0.6%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 1px rgb(189, 102, 196);
+    
+}
+.picture-box{
+    width: 98%;
+    height: 12vh;
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    transition: ease 0.4s;
+    
+
+}
 .logout{
     padding: 1%;
     height: 30%;
@@ -413,8 +444,8 @@ font-size: 11px;
     .pro-txt{
     
     font-family:"Inter", sans-serif;
-    font-size: 7px;
-    color: #fdfdfd;
+    font-size: 2.2vw;
+    color: #e9dfdf;
 }
    
 .cloud-img{
@@ -493,17 +524,7 @@ font-size: 15px;
     
 }
 
-.picture-box{
-    width: 100%;
-    height: 17vh;
-    border-radius: 10px;
-    margin-right: 1%;
-    margin-bottom: 5%;
-    background-color: #140c74;
-    transition: ease 0.4s;
-    
 
-}
 
 
 

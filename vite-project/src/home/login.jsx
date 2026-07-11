@@ -14,7 +14,7 @@ function Login(){
   async function userLogin(){
     if (!input.email||!input.password) return setmsgx('please feil up all the field')
 try {
-     const res= await axios.post('http://localhost:4000/api/login',input,{withCredentials:true})
+     const res= await axios.post('/api/login',input,{withCredentials:true})
      const message=res.data
      
      if(message.id){

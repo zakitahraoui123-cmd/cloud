@@ -4,13 +4,22 @@ import useStore from './zustand.js';
 import {useNavigate } from 'react-router';
 
 
-export default function VerifyCode() {
+export default function RecoverChecker() {
   const [code, setCode] = useState("");
   const [message,setmessage]=useState('')
       const userZu=useStore(state=>state.user)
         const userZUstand=useStore(state=>state.setUser)
+        console.log(userZu)
   const navigat =useNavigate()
-
+if(!userZu){
+   {
+        return(<>
+        <div className='box-of-err' >
+            <img className='err-img' src='/2065682.jpg' />
+        </div>
+        </>)
+    } 
+}
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -25,20 +34,20 @@ export default function VerifyCode() {
   };
     
      async function checkotp(){
-      if (!code) return
+        
+      if (!code || !userZu) return
       try {
-       const responde = await axios.post('/api/register',
-       { userZu:userZu,
+       const responde = await axios.post('/api/updatePassword',
+       { email:userZu,
         code:code },
        { withCredentials:true,
         timeout:3000
        }) 
-      const messagex=responde.data
-     console.log(messagex)
-     if(messagex.id){
-           userZUstand(messagex)
-          navigat('/welcome')
-     }
+       if(responde?.data?.message==='the code is correct'){
+        navigat('/confirm')
+        userZUstand(responde.data)
+       }
+  
       } catch (error) {
         console.error(error)
         console.log(error?.response)
@@ -55,7 +64,7 @@ export default function VerifyCode() {
   return (
     <div style={styles.container}>
       <form style={styles.card} onSubmit={handleSubmit}>
-        <h2>Email Verification</h2>
+        <h2>Code Verification</h2>
 
         <p style={styles.text}>
           Enter the 6-digit verification code sent to your email.

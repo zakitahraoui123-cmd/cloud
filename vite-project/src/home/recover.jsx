@@ -6,11 +6,8 @@ import {useNavigate } from 'react-router';
 
 export default function Recover() {
   const [email, setemail] = useState("");
-  const [message,setmessage]=useState('')
-  const [codeSended,setcodesende]=useState('')
-  const [code,setCode]=useState('')
-      const userZu=useStore(state=>state.user)
-        const userZUstand=useStore(state=>state.setUser)
+  const [wait,setwait]=useState(false)
+  const userZUstand=useStore(state=>state.setUser)
   const navigat =useNavigate()
 
   const handleSubmit = (e) => {
@@ -25,20 +22,27 @@ export default function Recover() {
     
      async function checkotp(){
       if (!email) return
+      setwait(true)
       try {
-       const responde = await axios.post('http://localhost:4000/api/recover',email,{withCredentials:true})    
-      if(responde.data==='we send the code'){
-        setcodesende('1')
-      }
+       const responde = await axios.post(`/api/recover/${email}`,{withCredentials:true})    
+    if(responde?.data?.message==='we send the otp'){
+      userZUstand(email)
+
+      setwait(false)
+      navigat('/checkOtp')
+    }
       
         
      }
        catch (error) {
     console.error(error)
+    setwait(false)
+     alert("Please check your email to continue the password reset process.");
+      return;
       }
     }
 
-
+console.log(wait)
   return (
     <div style={styles.container}>
          <div className='home-button'>
@@ -46,7 +50,7 @@ export default function Recover() {
     onClick={()=>navigat('/')}
     className='home-btn'>HOME</button>
   </div>
-    {  codeSended===''?<form style={styles.card} onSubmit={handleSubmit}>
+    <form style={styles.card} onSubmit={handleSubmit}>
         <h2>Password Recovery</h2>
 
         <p style={styles.text}>Send Reset Code 
@@ -68,42 +72,18 @@ export default function Recover() {
         type="submit" 
         
         style={!email?styles.button2:styles.button}>
-          Send Code
+         {wait===false? 'Send Code':<img style={styles.wait} src="/wLoader.gif" />}
         </button>
-        <div style={{color:'red',marginTop:'1%'}}>{message}</div>
-      </form>: <form style={styles.card} onSubmit={handleSubmit}>
-        <h2>OTP Code Verification</h2>
-
-        <p style={styles.text}>
-          Enter the 6-digit OTP code sent to your email.
-        </p>
-
-        <input
-          type="text"
-          value={code}
-          onChange={(e) =>
-            setCode(e.target.value.replace(/\D/g, "").slice(0, 6))
-          }
-          placeholder="123456"
-          style={styles.inputs}
-        />
-
-        <button 
-        onClick={checkotp}
-        type="submit" 
-        
-        style={code.length<6?styles.button2:styles.button}>
-          Verify
-        </button>
-        <div style={{color:'red',marginTop:'1%'}}>{message}</div>
-      </form>}
+    
+      </form>
     </div>
   );
 }
 
-const styles = {
+const styles =window.innerWidth>650? {
   container: {
     height: "100vh",
+    width:'100%',
     display: "flex",
    flexDirection: 'column',
     alignItems: "center",
@@ -148,23 +128,115 @@ const styles = {
     boxSizing: "border-box",
   },
   button: {
+     display:'flex',
+    alignItems:'center',
+    justifyContent:'center',
     width: "100%",
-    padding: "12px",
+    height:'25%',
     border: "none",
     borderRadius: "6px",
     background: "#007bff",
     color: "#ffffff",
+    marginBottom:'12%',
     fontSize: "16px",
     cursor: "pointer",
-  },  button2: {
+  }, 
+   button2: {
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'center',
     width: "100%",
-    padding: "12px",
+    marginBottom:'12%',
+    height:'25%',
     border: "none",
     borderRadius: "6px",
     background: "#a1c4e9",
     color: "#ffffff",
     fontSize: "16px",
     cursor: "pointer",
+  },
+  wait:{
+    width:'16%',
   }
   
-};
+}: {
+  container: {
+    height: "100vh",
+    width:'100%',
+    display: "flex",
+   flexDirection: 'column',
+    alignItems: "center",
+    background: "linear-gradient(to right, #CC86D1, #DCFFBD)",
+  },
+  card: {
+    width: "300px",
+    height:'60%',
+    background: "linear-gradient(to right, #CC86D1, #DCFFBD)",
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    textAlign: "center",
+    border:'solid,black,1px',
+    marginTop:'10%'
+  },
+  text: {
+    color: "#423a3a",
+    marginBottom: "20px",
+  },
+  input: {
+    width: "100%",
+    padding: "12px",
+    fontSize: "15px",
+    textAlign: "center",
+    
+    border: "1px solid #070707",
+    borderRadius: "6px",
+    outline: "none",
+    marginBottom: "20px",
+    boxSizing: "border-box",
+  },
+   inputs: {
+    width: "100%",
+    padding: "12px",
+    fontSize: "15px",
+    textAlign: "center",
+    letterSpacing: "8px",
+    border: "1px solid #070707",
+    borderRadius: "6px",
+    outline: "none",
+    marginBottom: "20px",
+    boxSizing: "border-box",
+  },
+  button: {
+     display:'flex',
+    alignItems:'center',
+    justifyContent:'center',
+    width: "100%",
+    height:'16%',
+    border: "none",
+    borderRadius: "6px",
+    background: "#007bff",
+    color: "#ffffff",
+    marginBottom:'12%',
+    fontSize: "16px",
+    cursor: "pointer",
+  }, 
+   button2: {
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'center',
+    width: "100%",
+    marginBottom:'12%',
+    height:'16%',
+    border: "none",
+    borderRadius: "6px",
+    background: "#a1c4e9",
+    color: "#ffffff",
+    fontSize: "16px",
+    cursor: "pointer",
+  },
+  wait:{
+    width:'20%',
+  }
+  
+}
