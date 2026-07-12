@@ -40,23 +40,23 @@ import 'react-photo-view/dist/react-photo-view.css';
       if(!translate){
         setdeletecancel({
             del:'Delete Pictures',
-            cen:'CANCEL'})
+            cen:'Cancel'})
     }else{
         setdeletecancel({
             del:'画像を削除',
             cen:'キャンセル'})
     }
   },[translate])
-    if(!userInfo){
-        return(<>
-        <div className='box-of-err' >
-            <img className='err-img' src='/2065682.jpg' />
-        </div>
-        </>)
-    }
+    // if(!userInfo){
+    //     return(<>
+    //     <div className='box-of-err' >
+    //         <img className='err-img' src='/2065682.jpg' />
+    //     </div>
+    //     </>)
+    // }
    
     const japanese = [
-  { jp: 'クラウドストレージ' },
+  { jp: 'クラウド' },
   { jp: 'すべての画像' },
   { jp: '画像を削除' },
   { jp: 'ファイルをアップロード' },
@@ -269,7 +269,7 @@ async function deleteinTheback(){
 return(<>
 
 <motion.div
- className={AI===false?"dash-box":"dash-box2"}
+ className="dash-box"
  
  
  >
@@ -303,13 +303,13 @@ return(<>
             </div>
             <div className='picture-info-left'>
                <div className='num-size'>
-                 <p style={{fontSize:'clamp(10px,1.4vw,1.6vw)'}}>{translate?japanese[4].jp:'Total Number'} : {file.length}</p>
-                <p style={{fontSize:'clamp(10px,1.4vw,1.6vw)'}}>{translate?japanese[5].jp:'Total Size '}: {!totalSize?'N/A':totalSize} MB</p>
+                 <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[4].jp:'Total Number'} : {file.length}</p>
+                <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[5].jp:'Total Size '}: {!totalSize?'N/A':totalSize} MB</p>
                </div>
                 
-                <p style={{fontSize:'clamp(10px,1.4vw,1.6vw)'}}><span style={{color:'red',textDecoration:'underline',fontSize:'clamp(8px,1.4vw,1.6vw)'}}>{translate?japanese[6].jp:'Note'} : </span>
+                <p style={{ fontSize: "clamp(8px, 2vw, 16px)" }}><span style={{color:'red',textDecoration:'underline',fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[6].jp:'Note'} : </span>
                 {translate?japanese[7].jp:'Images will be stored securely on an external server using secure protocols Under '}
-                    <span style={{color:'green',fontSize:'clamp(8px,1.4vw,1.6vw)'}}>{userInfo.firstname}{translate?japanese[8].jp:''} </span> {!translate?'name. ':''}
+                    <span style={{color:'green',fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{userInfo.firstname}{translate?japanese[8].jp:''} </span> {!translate?'name. ':''}
                      {translate?japanese[9].jp:'AI may analyze them to improve search accuracy and provide more efficient results.'}
                 </p>
             </div>
@@ -342,20 +342,29 @@ return(<>
         <div className='user-info'>
             <img className='avatar' src='meerkat.png' />
             
-            <p className={AI===false?"user-name":"user-name2"}>{userInfo.firstname}</p>
+            <p className="user-name">{userInfo.firstname}</p>
+            <div className='plan'>Free Plan</div>
         </div>
         <div className='picture-info'>
-            <div className='progress'>
-                <p className={AI===false?'text':'text2'}>{translate?japanese[0].jp:'Cloud Storage'}</p>
-        <CircularProgress className='progress-icon' style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'6%'}} value={(cloud*100)/5000} size="100%" 
-        color={AI===false?'rgb(138, 143, 285)':'pink'}>
-        <CircularProgressLabel> <p className='pro-txt'>{!cloud?'0.00':((cloud*100)/5000).toFixed(2)}%</p></CircularProgressLabel>
+                <p className='text'>{translate?japanese[0].jp:'Cloud Storage'}</p>
+        <CircularProgress style={{display:'flex',alignItems:'center',justifyContent:'center',height:'73%',strokeLinecap:'round'}} value={(cloud*100)/5000} size="100%" 
+        color={'rgb(147, 15, 165)'}
+        trackColor="rgb(211, 207, 207)"
+        >
+        <CircularProgressLabel > 
+          <p className='pro-txt'>{!cloud?'0.00':((cloud*100)/5000).toFixed(2)}%</p>
+          <p className='pro-txt2'>used</p>
+          </CircularProgressLabel>
             </CircularProgress>     
-            </div>
+            <p  className='gb'><span className='mb'>50 MB </span>/ 5 GB</p>
         
     </div>
         <div className='still'>
-           <div className={'first-still'}>
+           <div className='first-still'>
+          <div style={{width:'38%',display:'flex',alignItems:'center',paddingLeft:'10%'}}>
+            <img width='70%' src='/image-icon.png' />
+          </div>
+          <div className='all-pic-div'>  
              <p className={'images-word'}>{translate?japanese[1].jp:'All Pictures'}</p>
                    <CountUp
                     from={0}
@@ -363,22 +372,36 @@ return(<>
                     separator=","
                     direction="up"
                     duration={1}
-                    className={AI===false?"count-up-text":"count-up-text2"}
+                    className="count-up-text"
                     delay={0.5}
-                    /> 
+                    /> </div>
            </div>
-           <div className='therd-still'><p className='max'>{translate?japanese[18].jp:'Max Capacity : 5 GB'}</p></div>
+           <div className='therd-still'>
+          <div style={{width:'38%',display:'flex',alignItems:'center',paddingLeft:'6%'}}>
+              <img width='90%' src='/clouds.png' />
+            </div>
+           <div className='all-pic-div'>
+             <div className='capacity'>{translate?japanese[18].jp:<p className='images-word'>Max Capacity <p className='count-up-text'>5 GB</p></p>}</div>
+           </div>
+            </div>
                      <div className='delete-pictures-div'>
                         {deleteimg===true && AI===false?<button 
                         onClick={deletemode}
-                        className='deletebtn'>{deleteimage.length===0?deletecancel.del:deletecancel.cen}</button>:''}
+                        className={deleteimage.length===0?'deletebtn':'cancel'}>
+                          {deleteimage.length===0?<img style={{marginRight:'2%',width:'15%'}} src='/delete.png' />:''}
+                          {deleteimage.length===0?deletecancel.del:deletecancel.cen}</button>:''}
                      </div>
                      
         </div>
         <div className='logout'>
             <button
             onClick={logout}
-            className='logout-btn'><p className='log-text'>{translate?japanese[17].jp:'logout'}</p></button>
+            className='logout-btn'>
+             <div style={{display:'flex',alignItems:'center',justifyContent:'center',width:'30%',height:'100%'}}>
+               <img className='logout-icon' src='/logout.png' />
+             </div>
+              <p className='log-text'>{translate?japanese[17].jp:'Log out'}</p>
+              </button>
             <div className='robot-icon'>
           <img className='ai-img' src='/dots.gif' />
           <p className='powered'>Powered by AI</p>
@@ -390,22 +413,41 @@ return(<>
         <div className='middel-page'>
             <div className='search'>
                     {/* search buttons */}
-                <button 
+                <div className='photo-div'>
+                  <button 
                 onClick={galeryOfpictures}
-                className='search-btn'><img className='cloud-img' src='home-button.png' title='Galery' /></button>
-                <button
+                className='search-btn'>
+                  <img className='cloud-img' src='home-button.png' title='Galery' />
+                  </button>
+                  <p className='icon-information'>Photo</p>
+                </div>
+               <div className='photo-div'>
+                 <button
                 onClick={()=>setAI(!AI)}
-                className='search-btn'><img className={AI===false?'cloud-img':'ai-mode'} src='chip.png' title='AI Search' /></button>
+                className='search-btn'>
+                  <img className='cloud-img' src='chip.png' title='AI Search' />
+                  </button>
+                  <p className='icon-information'>Ai Search</p>
+               </div>
                 
                              
-                 <button
+               <div className='photo-div'>
+                  <button
                  onClick={getdialog}
-                 className='search-btn'><img  className='cloud-img' src='/cloud-computing.png' title='upload images' /></button>
-                 <button
+                 className='search-btn'>
+                  <img  className='cloud-img' src='/cloud-computing.png' title='upload images' />
+                  </button>
+                  <p className='icon-information'>Upload</p>
+               </div>
+              <div className='photo-div'>
+                   <button
                  onClick={()=>settranslite(!translate)}
-                 className='search-btn'><img className='cloud-img' src='/translation.png' title='JP/EN' />
+                 className='search-btn'>
+                  <img className='cloud-img' src='/translation.png' title='JP/EN' />
                  
                  </button>
+                 <p className='icon-information'>Translate</p>
+              </div>
                  <input 
                  multiple
                  

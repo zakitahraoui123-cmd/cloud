@@ -1,5 +1,6 @@
 import axios from 'axios';
 import './ai.css';
+import './dashboard.css'
 import useStore from './zustand';
 import { useEffect, useRef, useState } from 'react';
 
