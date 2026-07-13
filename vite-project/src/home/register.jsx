@@ -33,11 +33,14 @@ if(!userinfo.lastname||!userinfo.firstname||!userinfo.phone||!userinfo.email||!u
 }
 try {
     const res= await axios.post('/api/sendOtp',{email:userinfo.email},{withCredentials:true})
-    console.log(res)
-    setTimeout(() => {
+    if(res.data.length===3){
+        setsubmit(!submit)
+ setTimeout(() => {
             navigat('/OTP')
-        }, 700);
+        }, 1000);
 userZu(userinfo)
+    }
+   
 } catch (error) {
     console.error(error)
 }
@@ -96,8 +99,8 @@ return (<div className='body-2'>
 
 
     <div className="submit">
-     {submit===true? <button
-      onClick={()=>setsubmit(!submit)}
+      {submit===true?<button
+      onClick={submit}
       className="rainbow-border">
         Submit
         
