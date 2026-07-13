@@ -271,9 +271,7 @@ color: rgb(221, 200, 200);
     
 }
 .cloud-img{
-    opacity: 0;
-    transform: translateX(-30px);
-    animation: icon 4s ease forwards;
+    
     object-fit: cover;
     height: 60%;
 }
@@ -367,12 +365,7 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 .gb{
  font-size: 14px;   
 }
-@keyframes icon{
-    to{
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+
 .ai-img{
     width:50%;
 }
@@ -585,18 +578,11 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .cloud-img{
-    opacity: 0;
-    transform: translateX(-30px);
-    animation: icon 4s ease forwards;
+   
     object-fit: cover;
     height: 50%;
 }
-@keyframes icon{
-    to{
-        opacity: 1;
-        transform: translateX(10px);
-    }
-}
+
 .progress{
      height: 40%;
      display: flex;
