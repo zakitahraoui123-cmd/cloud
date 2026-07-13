@@ -90,7 +90,7 @@ return (<div className='body-2'>
         
     </div>
         <div className={userinfo.password.length<12 && userinfo.password.length!==0?'errtext2-box' :'errtext-box'}>
-             {userinfo.password.length<12 && userinfo.password.length!==0? <p style={{color:'black'}}>password to short</p>:''}
+             {userinfo.password.length<12 && userinfo.password.length!==0? <p style={{color:'black',padding:'5%'}}>password to short</p>:''}
              <p className='errtext'>{errtext}</p>
         </div>
       <div className='log-quastion'> 
