@@ -429,6 +429,10 @@ font-weight: 200;
     background-color: #d7dbe6;
     width: 100%;
 }
+.images-word{
+    font-weight: 500;
+    color: #494848;
+}
 .search{
     height: 10%;
     backdrop-filter: blur(6px);

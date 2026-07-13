@@ -314,7 +314,6 @@ height: 90%;
 .aiX{
     height: 75dvh;
     overflow: scroll;
-    background-color: #27272b;
     padding: 0;
     width: 100%;
     display: flex;
@@ -482,6 +481,7 @@ button:active{
     height: 70dvh;
  
     margin-right: 10px;
+    border-radius: 3px;
     
     
     

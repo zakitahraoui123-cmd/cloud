@@ -381,7 +381,7 @@ return(<>
               <img width='90%' src='/clouds.png' />
             </div>
            <div className='all-pic-div'>
-             <div className='capacity'>{translate?japanese[18].jp:<p className='images-word'>Max Capacity <p className='count-up-text'>5 GB</p></p>}</div>
+             <div className='capacity'>{translate?<p className='images-word'>{japanese[18].jp}</p>:<p className='images-word'>Max Capacity <p className='count-up-text'>5 GB</p></p>}</div>
            </div>
             </div>
                      <div className='delete-pictures-div'>
