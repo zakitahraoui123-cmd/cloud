@@ -33,13 +33,13 @@ if(!userinfo.lastname||!userinfo.firstname||!userinfo.phone||!userinfo.email||!u
 }
 try {
     const res= await axios.post('/api/sendOtp',{email:userinfo.email},{withCredentials:true})
-    if(res.data.length===3){
+    
         setsubmit(!submit)
  setTimeout(() => {
             navigat('/OTP')
         }, 1000);
 userZu(userinfo)
-    }
+    
    
 } catch (error) {
     console.error(error)
