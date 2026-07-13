@@ -458,3 +458,25 @@ width: 100%;
 }
 
 }
+@media (min-height: 1000px) and (min-width: 600px) {
+  
+  .big-box {
+    width: 70%;
+    height: 60vh;
+  }
+}
+
+@media (min-height: 900px) and (min-width: 800px) {
+  
+  .big-box {
+    width: 50%;
+    height: 70vh;
+  }
+}
+@media (min-height: 1000px) and (min-width: 2000px) {
+  
+  .big-box {
+    width: 40%;
+    height: 80vh;
+  }
+}
