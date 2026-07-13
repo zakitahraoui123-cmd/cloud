@@ -39,19 +39,19 @@ return (
   </div>
 
 <div className="big-box">
-    <div className='email-box'>
+    <div className='email-box-l'>
     <input 
             onChange={(e)=>setinput(pre=>({...pre,email:e.target.value}))}
 
     name='email'
-    className='email' type='text' placeholder='Email' />
+    className='email-l' type='text' placeholder='Email' />
 
     </div>
-     <div className='password-box'>
+     <div className='password-box-l'>
         <input 
         name='password'
         onChange={(e)=>setinput(pre=>({...pre,password:e.target.value}))}
-        className='password' type='password' placeholder='Password' />
+        className='password-l' type='password' placeholder='Password' />
 
     </div>
        <div className='recover'>

@@ -23,6 +23,7 @@ setuserinfo({...userinfo,
 })
 
 }
+
 async function submitform(e){
 e.preventDefault()
 if(!userinfo.lastname||!userinfo.firstname||!userinfo.phone||!userinfo.email||!userinfo.password){
@@ -33,13 +34,13 @@ if(!userinfo.lastname||!userinfo.firstname||!userinfo.phone||!userinfo.email||!u
 }
 try {
     const res= await axios.post('/api/sendOtp',{email:userinfo.email},{withCredentials:true})
-    
+    if (res.data==='we send the otp'){
         setsubmit(!submit)
  setTimeout(() => {
             navigat('/OTP')
         }, 1000);
 userZu(userinfo)
-    
+     }
    
 } catch (error) {
     console.error(error)
@@ -88,7 +89,8 @@ return (<div className='body-2'>
         className='password' type='password' placeholder='Password' />
         
     </div>
-        <div className='errtext-box'>
+        <div className={userinfo.password.length<12 && userinfo.password.length!==0?'errtext2-box' :'errtext-box'}>
+             {userinfo.password.length<12 && userinfo.password.length!==0? <p style={{color:'black'}}>password to short</p>:''}
              <p className='errtext'>{errtext}</p>
         </div>
       <div className='log-quastion'> 
@@ -100,7 +102,7 @@ return (<div className='body-2'>
 
     <div className="submit">
       {submit===true?<button
-      onClick={submit}
+      onClick={submitform}
       className="rainbow-border">
         Submit
         
