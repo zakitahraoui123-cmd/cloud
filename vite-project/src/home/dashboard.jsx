@@ -47,13 +47,13 @@ import 'react-photo-view/dist/react-photo-view.css';
             cen:'キャンセル'})
     }
   },[translate])
-    // if(!userInfo){
-    //     return(<>
-    //     <div className='box-of-err' >
-    //         <img className='err-img' src='/2065682.jpg' />
-    //     </div>
-    //     </>)
-    // }
+    if(!userInfo){
+        return(<>
+        <div className='box-of-err' >
+            <img className='err-img' src='/2065682.jpg' />
+        </div>
+        </>)
+    }
    
     const japanese = [
   { jp: 'クラウド' },

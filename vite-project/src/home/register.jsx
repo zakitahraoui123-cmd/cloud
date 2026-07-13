@@ -50,23 +50,20 @@ return (<div className='body-2'>
     className='home-btn'>HOME</button>
   </div>
     <form onSubmit={submitform} className="big-box">
-        <div className='name'>
-         <img src='/user.png' className='user-icon' />
+        <div className='email-box'>
 
         <input
         name='lastname'
         onChange={hundelinformation}
         className='email' placeholder='Last Name' />
         </div>
-        <div className='name'>
-            <img src='/user.png' className='user-icon' />
+        <div className='email-box'>
         <input
         name='firstname'
         onChange={hundelinformation}
         className='email' placeholder='First Name' />
         </div>
-        <div className='name'>
-            <img  src='/touch.png' className='user-icon'/>
+        <div className='email-box'>
         <input
         name='phone'
         onChange={hundelinformation}
@@ -75,15 +72,13 @@ return (<div className='body-2'>
         
         
     <div className='email-box'>
-    <img src='/mail.png' className='email-icon' />
     <input
     name='email'
     onChange={hundelinformation}
-    className='email' type='text' placeholder='Email' />
+    className='email2' type='text' placeholder='Email' />
 
     </div>
      <div className='password-box'>
-        <img className='password-icon' src='/password.png' />
         <input
         name='password'
         onChange={hundelinformation}
@@ -93,20 +88,20 @@ return (<div className='body-2'>
         <div className='errtext-box'>
              <p className='errtext'>{errtext}</p>
         </div>
-      <div className='quastion'> 
-        <p style={{color:'white',fontSize:'18px'}}>have an account? </p>
-         <div className='login-word'> <Link to='/login'>Login</Link></div>
+      <div className='log-quastion'> 
+        <p className='ask'>have an account ? </p>
+         <p className='ask2'> <Link to='/login'>Login</Link></p>
        
       </div>
 
 
-    <div className="flex items-center justify-center min-h-screen">
-      <button
+    <div className="submit">
+     {submit===true? <button
       onClick={()=>setsubmit(!submit)}
       className="rainbow-border">
-        {submit===true?'Submit':<img className='wait-icon' src='/wait.gif' />}
+        Submit
         
-      </button>
+      </button>:<img className='wait-icon' src='/wait.gif' />}
       </div>
 </form>
  <footer>

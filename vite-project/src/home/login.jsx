@@ -40,7 +40,6 @@ return (
 
 <div className="big-box">
     <div className='email-box'>
-    <img src='/mail.png' className='email-icon' />
     <input 
             onChange={(e)=>setinput(pre=>({...pre,email:e.target.value}))}
 
@@ -49,7 +48,6 @@ return (
 
     </div>
      <div className='password-box'>
-        <img className='password-icon' src='/password.png' />
         <input 
         name='password'
         onChange={(e)=>setinput(pre=>({...pre,password:e.target.value}))}
