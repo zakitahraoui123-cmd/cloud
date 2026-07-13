@@ -594,7 +594,7 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 @keyframes icon{
     to{
         opacity: 1;
-        transform: translateX(-10px);
+        transform: translateX(10px);
     }
 }
 .progress{
