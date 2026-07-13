@@ -59,19 +59,19 @@ return (<div className='body-2'>
         <input
         name='lastname'
         onChange={hundelinformation}
-        className='email' placeholder='Last Name' />
+        className='email2' placeholder='Last Name' />
         </div>
         <div className='email-box'>
         <input
         name='firstname'
         onChange={hundelinformation}
-        className='email' placeholder='First Name' />
+        className='email2' placeholder='First Name' />
         </div>
         <div className='email-box'>
         <input
         name='phone'
         onChange={hundelinformation}
-        placeholder='phone' className='email' />
+        placeholder='phone' className='email2' />
         </div>
         
         
