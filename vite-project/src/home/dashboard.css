@@ -517,7 +517,7 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 .still{
     display: flex;
     flex-direction: column;
-    height: 20%;
+    height: 25%;
     
 
 }
@@ -583,15 +583,7 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color:rgb(147, 15, 165);
     margin-right: 2%;
 }
-.photo-div{
-    width: 25%;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-right: #b3adad solid 1px;
-}
+
 .cloud-img{
     opacity: 0;
     transform: translateX(-30px);
@@ -602,7 +594,7 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 @keyframes icon{
     to{
         opacity: 1;
-        transform: translateX(0px);
+        transform: translateX(-10px);
     }
 }
 .progress{

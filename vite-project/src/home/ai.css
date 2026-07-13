@@ -405,6 +405,9 @@ border-radius: 3px;
 
 
 }
+input.textarea,select{
+    font-size: 16px;
+}
 .button{
     width: 100%;
     color: white;
