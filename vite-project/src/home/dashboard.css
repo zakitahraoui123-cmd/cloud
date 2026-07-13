@@ -514,6 +514,13 @@ font-weight: 200;
 font-size: 12px;
 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+.still{
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    
+
+}
     .therd-still{
     margin-top: 10%;
     display: flex;
@@ -582,6 +589,12 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     animation: icon 4s ease forwards;
     object-fit: cover;
     height: 50%;
+}
+@keyframes icon{
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 .progress{
      height: 40%;

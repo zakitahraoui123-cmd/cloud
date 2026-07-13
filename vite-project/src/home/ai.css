@@ -312,8 +312,7 @@ height: 90%;
     
 }
 .aiX{
-    height: 85%;
-    overflow: scroll;
+    height: 72%;
     padding: 0;
     width: 100%;
     display: flex;
@@ -363,7 +362,7 @@ height:30vh;
     height:auto;
 }
 .top{
-    color: #f5f5fa;
+    color: #030305;
     font-size: 12px;
     margin-bottom: 5px;
     margin-left: 25%;
@@ -475,7 +474,7 @@ button:active{
         padding: 2%;
  width: 100%;
  margin-top: 2%;
-    height: 80vh;
+    height: 72vh;
  
     margin-right: 10px;
     
