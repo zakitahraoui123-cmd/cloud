@@ -669,10 +669,10 @@ color: #fffcdc;
 .dialog{
     position: absolute;
 
-    left: 15%;
+    left: 15px;
     
     width: 70%;
-    height:86%;
+    height:100%;
     border-radius: 20px;
     opacity: 0;
     animation: showDialog ease 0.3s forwards;
@@ -713,21 +713,20 @@ to{
    transform: scale(0.9);
 }
 .mid-box{
-height: 40%;
+height: 42vh;
 
 margin-top: 1%;
 }
 .lst-box{
     display: flex;
-    padding-top: 6%;
-
+    
     flex-direction: column;
-     height: 50%;
+     height: 40%;
 }
 .progres-upload{
     display: flex;
     align-items: center;
-   height: 50%;
+   height: 40%;
 
 }
 .upload-btn{
@@ -772,14 +771,15 @@ align-items: end;
 .picture-info-left{
     display: flex;
     flex-direction: column;
-    
     width: 40%;
+    height: 100%;
     padding-left: 2%;
     
 }
 .num-size{
     width: 100%;
     height: 35%;
+    background-color: #d7dbe6;
     border-bottom:solid 1px coral;
     margin-bottom: 2%;
 }
@@ -946,7 +946,7 @@ align-items: end;
 height: 17vh;
 display: flex;
 justify-content: space-between;
-align-items: end;
+align-items: center;
 
 }
 .img-ready-to-upload{
@@ -973,26 +973,26 @@ align-items: end;
     justify-content: center;
     font-size: 12px;
     width: 40%;
-    height: 4vh;
+    height: 6vh;
+    font-size: 12px;
     color: #511483;
-    border-radius: 10px;
+    border-radius: 5px;
     border: #f086d5 solid 1px;
     background-color: #adbbc4;
 }
     .lst-box{
     display: flex;
-    padding-top: 30%;
 
     flex-direction: column;
-     height: 50%;
+     height: 30%;
 }
     .dialog{
     position: absolute;
 
-    left: 15%;
+    left: 0px;
     
-    width: 70%;
-    height:60%;
+    width: 100%;
+    height:70%;
     border-radius: 20px;
     opacity: 0;
     animation: showDialog ease 0.3s forwards;

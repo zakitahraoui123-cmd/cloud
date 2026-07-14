@@ -2,20 +2,14 @@ import { Link, useNavigate } from 'react-router';
 import './register.css'
 import { useState } from 'react';
 import useStore from './zustand.js';
-import { useEffect } from 'react';
 import axios from 'axios';
 
 function Regeister(){
     const navigat= useNavigate()
     const [submit,setsubmit]=useState(true)
-    const [errtext,seterrtext]=useState('')
     const userZu=useStore(state=>state.setUser)
     const [userinfo,setuserinfo]=useState({lastname:'',firstname:'',email:'',phone:'',password:''})
-useEffect(()=>{
-    setTimeout(()=>{
-    seterrtext('')
-},7000)
-},[errtext])
+
 function hundelinformation(e){
 
 setuserinfo({...userinfo,
@@ -23,14 +17,13 @@ setuserinfo({...userinfo,
 })
 
 }
+console.log(userinfo.lastname.length)
 
 async function submitform(e){
 e.preventDefault()
 if(!userinfo.lastname||!userinfo.firstname||!userinfo.phone||!userinfo.email||!userinfo.password){
-    return seterrtext('Please fill out all the fields')
+    return alert('Please fill out all the fields')
 
-}else if(userinfo.password.length<8){
-    return seterrtext('password must be more the 8 character')
 }
 try {
     const res= await axios.post('/api/sendOtp',{email:userinfo.email},{withCredentials:true})
@@ -47,55 +40,54 @@ userZu(userinfo)
 }
  
 }
-return (<div className='body-2'>
-     <div className='home-button'>
+return (<div className='body-r'>
+     <div className='home-button-r'>
     <button
     onClick={()=>navigat('/')}
-    className='home-btn'>HOME</button>
+    className='home-btn-r'>HOME</button>
   </div>
-    <form onSubmit={submitform} className="big-box">
-        <div className='email-box'>
+    <form onSubmit={submitform} className="big-box-r">
+        <div className='email-box-r'>
 
         <input
         name='lastname'
         onChange={hundelinformation}
-        className='email2' placeholder='Last Name' />
+        className='email-r' placeholder='Last Name' />
         </div>
-        <div className='email-box'>
+        <div className='email-box-r'>
         <input
         name='firstname'
         onChange={hundelinformation}
-        className='email2' placeholder='First Name' />
+        className='email-r' placeholder='First Name' />
         </div>
-        <div className='email-box'>
+        <div className='email-box-r'>
         <input
         name='phone'
         onChange={hundelinformation}
-        placeholder='phone' className='email2' />
+        placeholder='phone' className='email-r' />
         </div>
         
         
-    <div className='email-box'>
+    <div className='email-box-r'>
     <input
     name='email'
     onChange={hundelinformation}
-    className='email2' type='text' placeholder='Email' />
+    className='email-r' type='text' placeholder='Email' />
 
     </div>
-     <div className='password-box'>
+     <div className='email-box-r'>
         <input
         name='password'
         onChange={hundelinformation}
-        className='password' type='password' placeholder='Password' />
+        className='email-r' type='password' placeholder=' password A bcd1234' />
         
     </div>
         <div className={userinfo.password.length<12 && userinfo.password.length!==0?'errtext2-box' :'errtext-box'}>
-             {userinfo.password.length<12 && userinfo.password.length!==0? <p style={{color:'black',padding:'1.5%'}}>password to short</p>:''}
-             <p className='errtext'>{errtext}</p>
+             {userinfo.password.length<12 && userinfo.password.length!==0? <p style={{color:'white',padding:'1.5%'}}>password to short</p>:''}
         </div>
-      <div className='log-quastion'> 
-        <p className='ask'>have an account ? </p>
-         <p className='ask2'> <Link to='/login'>Login</Link></p>
+      <div className='log-quastion-r'> 
+        <p className='ask-r'>have an account ? </p>
+         <p className='ask2-r'> <Link to='/login'>Login</Link></p>
        
       </div>
 
@@ -103,10 +95,10 @@ return (<div className='body-2'>
     <div className="submit">
       {submit===true?<button
       onClick={submitform}
-      className="rainbow-border">
+      className="submit-r">
         Submit
         
-      </button>:<img className='wait-icon' src='/wait.gif' />}
+      </button>:<img className='wait-icon-r' src='/wait.gif' />}
       </div>
 </form>
  <footer>

@@ -47,13 +47,13 @@ import 'react-photo-view/dist/react-photo-view.css';
             cen:'キャンセル'})
     }
   },[translate])
-    if(!userInfo){
-        return(<>
-        <div className='box-of-err' >
-            <img className='err-img' src='/2065682.jpg' />
-        </div>
-        </>)
-    }
+    // if(!userInfo){
+    //     return(<>
+    //     <div className='box-of-err' >
+    //         <img className='err-img' src='/2065682.jpg' />
+    //     </div>
+    //     </>)
+    // }
    
     const japanese = [
   { jp: 'クラウド' },
@@ -78,21 +78,15 @@ import 'react-photo-view/dist/react-photo-view.css';
 ]
 
 
-
+console.log('heeeeeeeeeeeeeeere',file.length)
   
 
     async function hundelfile(){
         inputref.current.click()
             
-
     }
-
-  
-    async function getpic(){
-       if(!userInfo?.id){
-       return console.log('user not loaded yet')
-       }
-     try {
+     const format= new FormData();
+async function convert(){
        const  options  =  { 
         maxSizeMB : 1 , 
         maxWidthOrHeight : 1920 , 
@@ -106,14 +100,23 @@ import 'react-photo-view/dist/react-photo-view.css';
         })
       )
 
-    const format= new FormData();
+   
    for(let i=0 ;i<compressedFile.length;i++){
         format.append('picture',compressedFile[i])
 
     }
-     
-    console.log('file',format.getAll('picture'))
+  console.log('here',format.getAll('picture'))
 
+}
+  if(file.length!==0){
+    convert()
+  }
+    async function getpic(){
+      //  if(!userInfo?.id){
+      //  return console.log('user not loaded yet')
+      //  }
+     try {
+  console.log('here insid function',format.getAll('picture'))
            const respond= await axios.post(`/api/upload/${userInfo.id}`,format,{
             withCredentials:true,
             onUploadProgress:(progressEvent)=>{
@@ -381,7 +384,7 @@ return(<>
               <img width='90%' src='/clouds.png' />
             </div>
            <div className='all-pic-div'>
-             <div className='capacity'>{translate?<p className='images-word'>{japanese[18].jp}</p>:<p className='images-word'>Max Capacity <p className='count-up-text'>5 GB</p></p>}</div>
+             <div className='capacity'>{translate?<p className='images-word'>{japanese[18].jp}</p>:<p className='images-word'>Max Capacity <span className='count-up-text'>5 GB</span></p>}</div>
            </div>
             </div>
                      <div className='delete-pictures-div'>
