@@ -24,6 +24,7 @@ background: linear-gradient(135deg,#f0e5ee, #F5F1FF,#F8FAFF); /* W3C, IE 10+/ Ed
     margin-left: 0.5%;
     width: 15%;
     height: 100%;
+    background: linear-gradient(rgb(241, 192, 192),rgb(206, 252, 216));
     backdrop-filter: blur(2px);
 }   
 @keyframes show {
@@ -453,7 +454,7 @@ font-weight: 200;
     align-content: first baseline;
     overflow-y: scroll;
     scrollbar-width: none;
-    height: 85%;
+    height: 100dvh;
     
     padding: 1%;
      backdrop-filter: blur(6px);
@@ -732,11 +733,27 @@ margin-top: 1%;
 .upload-btn{
 height: 17vh;
 display: flex;
-justify-content: space-between;
-align-items: end;
+flex-direction: column;
+
 
 }
+.dialog-note{
+    height: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
+.note-images{
+    color: rgb(231, 59, 59);
+    font-size: clamp(14px,1.6vw,2vw);
+}
+.dialog-buttons{
+display: flex;
+align-items: center;
+justify-content: space-around;
+height: 70%;
+}
 .click-upload-button{
     height: 90%;
     display: flex;
@@ -818,15 +835,24 @@ align-items: end;
 }
 .btn-img-hundel{
     color: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 1%;
     width: 40%;
-    height: 50%;
-    background-color: #a3b3e6;
+    height: 70%;
+    background-color: #5d7eeb;
     border-radius: 10px;
 }
 .btn-img-hundel:active{
     transform: scale(0.98);
-    background-color: #7f94d8;
+    background-color: #73eb87;
+
+    
+}
+.btn-img-hundel:hover{
+    transform: scale(0.98);
+    background-color: #639ee6;
 
     
 }
@@ -891,12 +917,7 @@ align-items: end;
 
     border-radius: 10px;
 }
-.dialog-note{
-    height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 .dialog-btn{
     display: flex;
     align-items: end;
@@ -922,7 +943,7 @@ align-items: end;
 @media screen and (max-width:650px) {
     .picture-info-right{
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(2,1fr);
     width: 60%;
     gap: 0.6%;
      overflow-y: scroll;
@@ -931,7 +952,7 @@ align-items: end;
      align-content: first baseline;
 }
     .small-boxes{
-   height: 10vh;
+   height: 13vh;
     background-color: #24243e;
     position: relative;
     
@@ -939,20 +960,31 @@ align-items: end;
 .progres-upload{
     display: flex;
     align-items: center;
-   height: 50%;
+   height: 30%;
 
 }
-.upload-btn{
-height: 17vh;
-display: flex;
-justify-content: space-between;
-align-items: center;
+.mid-box{
+height: 60%;
 
+margin-top: 1%;
+}
+.pictures-maping{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    margin-right: 2%;
+   
+}
+.picture-info-left{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 80%;
+    padding-left: 2%;
+    
 }
 .img-ready-to-upload{
-    height: 10vh;
-   
-    
+    height: 13vh;
     object-fit: cover;
     z-index: 1;
 }
@@ -972,19 +1004,18 @@ align-items: center;
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    width: 40%;
-    height: 6vh;
+    width: 48%;
+    height: 5vh;
     font-size: 12px;
     color: #511483;
     border-radius: 5px;
-    border: #f086d5 solid 1px;
-    background-color: #adbbc4;
+    background-color: #82bde2;
 }
     .lst-box{
     display: flex;
 
     flex-direction: column;
-     height: 30%;
+     height: 40%;
 }
     .dialog{
     position: absolute;
@@ -1003,6 +1034,16 @@ background: -webkit-linear-gradient(to right, #fffcdc, #d9a7c7);  /* Chrome 10-2
 background: linear-gradient(to right, #fffcdc, #d9a7c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
+}
+
+@keyframes showDialog{
+to{
+    opacity: 1;
+    transform: scale(1);
+    height: 100dvh;
+    width: 100dvw;
+   background:linear-gradient(to right,rgb(238, 215, 243),rgb(208, 218, 236));
+}
 }
 .d-div{
     width: 7%;
@@ -1028,5 +1069,17 @@ background: linear-gradient(to right, #fffcdc, #d9a7c7); /* W3C, IE 10+/ Edge, F
     color: rgb(240, 2, 2);
     border: red solid 1px;
     font-size: 14px;
+}
+.btn-img-hundel:active{
+    transform: scale(0.98);
+    background-color: #73eb87;
+
+    
+}
+.btn-img-hundel:hover{
+    transform: scale(0.98);
+    background-color: #639ee6;
+
+    
 }
 }

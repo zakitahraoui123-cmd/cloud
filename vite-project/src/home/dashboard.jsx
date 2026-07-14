@@ -2,7 +2,7 @@ import {useEffect, useRef, useState } from 'react';
 import './dashboard.css';
 import {Progress} from '@chakra-ui/react';
 import CountUp from '../component/CountUp'
-import {  motion } from 'framer-motion';
+import {  motion, number } from 'framer-motion';
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import useStore from './zustand';
 import {useNavigate } from 'react-router';
@@ -20,6 +20,7 @@ import 'react-photo-view/dist/react-photo-view.css';
     const [galery,setgalery]=useState(false)
     const [imageUrl,setimageUrl]=useState()
     const [translate,settranslite]=useState(false)
+    const [notimage,setnotimage]=useState('')
     const [totalLoad,settotalLoad]=useState()
     const [AI,setAI]=useState(false)
     const [deleteimage,setdeleteimage]=useState([])
@@ -47,13 +48,13 @@ import 'react-photo-view/dist/react-photo-view.css';
             cen:'キャンセル'})
     }
   },[translate])
-    // if(!userInfo){
-    //     return(<>
-    //     <div className='box-of-err' >
-    //         <img className='err-img' src='/2065682.jpg' />
-    //     </div>
-    //     </>)
-    // }
+    if(!userInfo){
+        return(<>
+        <div className='box-of-err' >
+            <img className='err-img' src='/2065682.jpg' />
+        </div>
+        </>)
+    }
    
     const japanese = [
   { jp: 'クラウド' },
@@ -78,7 +79,6 @@ import 'react-photo-view/dist/react-photo-view.css';
 ]
 
 
-console.log('heeeeeeeeeeeeeeere',file.length)
   
 
     async function hundelfile(){
@@ -87,6 +87,12 @@ console.log('heeeeeeeeeeeeeeere',file.length)
     }
      const format= new FormData();
 async function convert(){
+  const checking=file.findIndex(item=>(
+    !item.type.startsWith('image')
+  ))
+
+if(checking===-1){
+   try{ 
        const  options  =  { 
         maxSizeMB : 1 , 
         maxWidthOrHeight : 1920 , 
@@ -94,29 +100,35 @@ async function convert(){
         fileType:'image/webp', 
         initialQuality: 0.8
   } 
-      const  compressedFile  = await Promise.all(
+    const  compressedFile  = await Promise.all(
         file.map(item=>{
           return imageCompression(item,options ) ; 
         })
       )
-
-   
+       
    for(let i=0 ;i<compressedFile.length;i++){
         format.append('picture',compressedFile[i])
 
     }
   console.log('here',format.getAll('picture'))
+    }catch(error){
+            console.error('error in promise',error)
+
+    }
+
+  }else{
+    setnotimage(true)
+  }
 
 }
-  if(file.length!==0){
+  if(file.length!==0 && notimage===false){
     convert()
   }
     async function getpic(){
-      //  if(!userInfo?.id){
-      //  return console.log('user not loaded yet')
-      //  }
+       if(!userInfo?.id){
+       return console.log('user not loaded yet')
+       }
      try {
-  console.log('here insid function',format.getAll('picture'))
            const respond= await axios.post(`/api/upload/${userInfo.id}`,format,{
             withCredentials:true,
             onUploadProgress:(progressEvent)=>{
@@ -187,6 +199,7 @@ const url=fileVlx.map((item)=>{
  })
  
 function deletePictureFromUpload(e){
+  setnotimage(false)
 const currentImg=e.currentTarget.name
 setfile(Object.values(file).filter(item=>( item.name!==currentImg)
 ))
@@ -326,13 +339,18 @@ return(<>
                
         </div>
         <div className='upload-btn'>
-            <button 
+         <div className='dialog-note'>
+           {notimage===true?<p className='note-images'>Note: only images Type</p>:''}
+         </div>
+            <div className='dialog-buttons'>
+              <button 
             onClick={hundelfile}
             className='btn-img-hundel'>{translate?japanese[15].jp:'ADD'}</button>
             <button
            
              onClick={getpic}
             className='btn-img-hundel'>{translate?japanese[16].jp:'UPLOAD'}</button>
+            </div>
         </div>
        </div>:''}
       
@@ -456,7 +474,9 @@ return(<>
                  
                  onChange={(e)=>setfile(pre=>[...pre,...e.target.files])}
                  ref={inputref}
-                 type='file' style={{display:'none'}} />
+                 type='file' style={{display:'none'}}
+                 accept='image'
+                 />
             </div>
                 {AI !== true && (
   <div className='all-pic'>
