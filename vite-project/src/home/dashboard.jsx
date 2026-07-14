@@ -377,7 +377,7 @@ return(<>
           <p className='pro-txt2'>used</p>
           </CircularProgressLabel>
             </CircularProgress>     
-            <p  className='gb'><span className='mb'>50 MB </span>/ 5 GB</p>
+            <p  className='gb'><span className='mb'>{cloud} MB </span>/ 5 GB</p>
         
     </div>
         <div className='still'>
