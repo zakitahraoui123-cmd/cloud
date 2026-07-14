@@ -54,7 +54,7 @@ const victoringImages = await Promise.all(
 })
     ))
 if(records){
-         index.namespace(nameOfspaceID).upsert({records})
+       await index.namespace(nameOfspaceID).upsert({records})
 
 }
 } catch (error) {
