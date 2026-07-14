@@ -299,9 +299,24 @@ return(<>
        </div>
        <div className='mid-box'> 
        {file.length===0? 
-       <button 
+       <div><button 
         onClick={hundelfile}
-        className='click-upload-button'><img className='data-cloud-icon' src='data-cloud.png' />CLICK UPLOAD</button>:
+        className='click-upload-button'>
+          <img className='data-cloud-icon' src='data-cloud.png' />
+        CLICK UPLOAD</button>
+        <div className='video-up-div'>
+              <video
+        className='video-up'
+  src="VID.mp4"
+  autoPlay
+  muted
+  loop
+  playsInline/>  
+        </div>
+    
+        </div>
+        
+        :
         
         <div className='pictures-maping'>
             <div className='picture-info-right'>
@@ -377,7 +392,7 @@ return(<>
           <p className='pro-txt2'>used</p>
           </CircularProgressLabel>
             </CircularProgress>     
-            <p  className='gb'><span className='mb'>{cloud} MB </span>/ 5 GB</p>
+            <p  className='gb'><span className='mb'>{(cloud*100)/5000} MB </span>/ 5 GB</p>
         
     </div>
         <div className='still'>

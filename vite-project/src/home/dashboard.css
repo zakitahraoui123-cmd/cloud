@@ -714,7 +714,6 @@ to{
    transform: scale(0.9);
 }
 .mid-box{
-height: 42vh;
 
 margin-top: 1%;
 }
@@ -755,13 +754,27 @@ justify-content: space-around;
 height: 70%;
 }
 .click-upload-button{
-    height: 90%;
+    height: 30vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     border: solid 1px rgb(136, 132, 132);
     width: 100%;
     
+}
+.video-up-div{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+
+}
+.video-up{
+    height: 50vh;
+    width:100%;
+    object-fit: cover;
 }
 .data-cloud-icon{
     height: 70%;

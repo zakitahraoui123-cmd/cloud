@@ -1,19 +1,16 @@
 import { useNavigate } from 'react-router';
-import './register.css'
+import './login.css'
 
 
 function Welcome(){
     const navigate=useNavigate(null)
     setTimeout(()=>{
         navigate('/dash')
-    },4000)
-return (<div className='body-2'>
-    <div className='home-button'>
-    
-  </div>
-    <div className="big-box">
+    },1400)
+return (<div className='body-x'>
+    <div className="big-box-x">
     <div className='video-box'>
-    <video className='video' autoPlay muted><source src='/Video.mp4' /></video>
+    <img className='video' src='loading.gif' />
 
     </div>
 
