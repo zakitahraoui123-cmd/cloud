@@ -20,7 +20,7 @@ import 'react-photo-view/dist/react-photo-view.css';
     const [galery,setgalery]=useState(false)
     const [imageUrl,setimageUrl]=useState()
     const [translate,settranslite]=useState(false)
-    const [notimage,setnotimage]=useState('')
+    const [notimage,setnotimage]=useState(false)
     const [totalLoad,settotalLoad]=useState()
     const [AI,setAI]=useState(false)
     const [deleteimage,setdeleteimage]=useState([])
@@ -128,7 +128,10 @@ if(checking===-1){
        if(!userInfo?.id){
        return console.log('user not loaded yet')
        }
+       if(notimage===true) return
+    
      try {
+      console.log(format)
            const respond= await axios.post(`/api/upload/${userInfo.id}`,format,{
             withCredentials:true,
             onUploadProgress:(progressEvent)=>{
