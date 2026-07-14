@@ -53,8 +53,10 @@ const victoringImages = await Promise.all(
             }
 })
     ))
+if(records){
+         index.namespace(nameOfspaceID).upsert({records})
 
-     index.namespace(nameOfspaceID).upsert({records})
+}
 } catch (error) {
     console.error(error)
     return res.status(500).json({message:error})
@@ -63,7 +65,7 @@ let allStorage=0
 for(let i=0;i<file.length;i++){
     let single=file[i]
     const path =single.path.slice(11)
-    const size =Number((single.size/ (1024*1024)).toFixed(2))
+    const size =Number(single.size/ 1024*1024)
     allStorage=size+allStorage
 
     const insertdata= await pool.query('INSERT INTO user_data (user_info_id,pictures_path,picture_size) VALUES ($1,$2,$3)',[userId,path,size])
