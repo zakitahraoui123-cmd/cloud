@@ -55,10 +55,9 @@ import {io} from 'socket.io-client';
 
 
        useEffect(()=>{
-    socket.on('connect',()=>{
-      
+      if(socket.connected){
       socket.emit('userid',userInfo.id)
-    })
+      }
     socket.on('user data',(data)=>{
       console.log('we get the user data in the socket',data);
       if(data){
@@ -83,6 +82,7 @@ import {io} from 'socket.io-client';
     })
     return()=>{
       socket.off('connect')
+      socket.off('user data')
     }
    },[])
     if(!userInfo){
@@ -379,7 +379,7 @@ return(<>
             <div className='picture-info-left'>
                <div className='num-size'>
                  <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[4].jp:'Total Number'} : {file.length}</p>
-                <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[5].jp:'Total Size '}: {!totalSize?'N/A':(totalSize).toFixed(2)} MB</p>
+                <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[5].jp:'Total Size '}: {!totalSize?'N/A':totalSize} MB</p>
                </div>
                 
                 <p style={{ fontSize: "clamp(8px, 2vw, 16px)" }}><span style={{color:'red',textDecoration:'underline',fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[6].jp:'Note'} : </span>
@@ -422,7 +422,7 @@ return(<>
         <div className='user-info'>
             <img className='avatar' src='meerkat.png' />
             
-            {/* <p className="user-name">{userInfo.firstname}</p> */}
+            <p className="user-name">{userInfo.firstname}</p>
             <div className='plan'>Free Plan</div>
         </div>
         <div className='picture-info'>
@@ -436,7 +436,7 @@ return(<>
           <p className='pro-txt2'>used</p>
           </CircularProgressLabel>
             </CircularProgress>     
-            <p  className='gb'><span className='mb'>{(cloud*100)/5000} MB </span>/ 5 GB</p>
+            <p  className='gb'><span className='mb'>{((cloud*100)/5000).toFixed(2)} MB </span>/ 5 GB</p>
         
     </div>
         <div className='still'>
