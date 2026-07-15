@@ -12,7 +12,7 @@ import imageCompression from 'browser-image-compression';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import {io} from 'socket.io-client';
-     const socket =io('/')
+    
 
 
  function Dashboard(){
@@ -39,6 +39,9 @@ import {io} from 'socket.io-client';
     const updateStorage=useStore(state=>state.updateStorage)
     const deleteinfo =useStore(state=>state.logout)
     const cloud =userInfo?.userStorage||0.00
+             const formatRef=useRef(new FormData());
+             const socketRef=useRef(null)
+
     console.log(cloud)
       useEffect(()=>{
       if(!translate){
@@ -51,24 +54,23 @@ import {io} from 'socket.io-client';
             cen:'キャンセル'})
     }
   },[translate])
-       const format= new FormData();
 
 
        useEffect(()=>{
-      if(socket.connected){
-      socket.emit('userid',userInfo.id)
-      }
-    socket.on('user data',(data)=>{
+      socketRef.current=io('/')
+   
+      
+    socketRef.current.on('user data',(data)=>{
       console.log('we get the user data in the socket',data);
       if(data){
              
-                  setTimeout(() => {
+                  
                       setfile([])
-                    format.delete('picture')
+                    formatRef.current.delete('picture')
                     togialRef.current.close()
                     inputref.current.value=''
                     settotalLoad(0)
-                  }, 1000);
+                  
 
                       const images=data.allImg
                updatepictureZU(images)
@@ -81,17 +83,11 @@ import {io} from 'socket.io-client';
       
     })
     return()=>{
-      socket.off('connect')
-      socket.off('user data')
+      socketRef.current?.disconnect()
+      socketRef.current.off('connect')
     }
-   },[])
-    if(!userInfo){
-        return(<>
-        <div className='box-of-err' >
-            <img className='err-img' src='/2065682.jpg' />
-        </div>
-        </>)
-    }
+   },[updateStorage,updatepictureZU])
+ 
  
     const japanese = [
   { jp: 'クラウド' },
@@ -123,6 +119,7 @@ import {io} from 'socket.io-client';
          videoref.current.muted=true
        videoref.current.pause();
         videoref.current.currentTime = 0;
+
             
     }
     function closefunc(){
@@ -132,14 +129,16 @@ import {io} from 'socket.io-client';
         videoref.current.currentTime = 0;
 
     }
- 
-async function convert(){
+
+    useEffect(()=>{
+const convert=async()=>{
   const checking=file.findIndex(item=>(
     !item.type.startsWith('image')
   ))
 
 if(checking===-1){
    try{ 
+
        const  options  =  { 
         maxSizeMB : 1 , 
         maxWidthOrHeight : 1920 , 
@@ -154,10 +153,9 @@ if(checking===-1){
       )
        
    for(let i=0 ;i<compressedFile.length;i++){
-        format.append('picture',compressedFile[i])
+        formatRef.current.append('picture',compressedFile[i])
 
     }
-  console.log('here',format.getAll('picture'))
     }catch(error){
             console.error('error in promise',error)
 
@@ -168,9 +166,21 @@ if(checking===-1){
   }
 
 }
-  if(file.length!==0 && notimage===false){
     convert()
-  }
+    },[file])
+
+
+
+  
+   
+
+     if(!userInfo){
+        return(<>
+        <div className='box-of-err' >
+            <img className='err-img' src='/2065682.jpg' />
+        </div>
+        </>)
+    }
 
    
     async function getpic(){
@@ -178,10 +188,11 @@ if(checking===-1){
        return console.log('user not loaded yet')
        }
        if(notimage===true) return
-    
      try {
+            socketRef.current?.emit('userid',userInfo.id)
+console.log(formatRef.current.getAll('picture'))
           setscan(true)
-           const respond= await axios.post(`/api/upload/${userInfo.id}`,format,{
+           const respond= await axios.post(`/api/upload/${userInfo.id}`,formatRef.current,{
             withCredentials:true,
             onUploadProgress:(progressEvent)=>{
                 const load=progressEvent.loaded
@@ -210,7 +221,10 @@ if(checking===-1){
         
         
     }
-    
+    function inputfile(e){
+     setfile(pre=>[...pre,...e.target.files])
+     
+    }
 
     async function logout(){
 
@@ -533,7 +547,7 @@ return(<>
                  <input 
                  multiple
                  
-                 onChange={(e)=>setfile(pre=>[...pre,...e.target.files])}
+                 onChange={inputfile}
                  ref={inputref}
                  type='file' style={{display:'none'}}
                  accept='image'

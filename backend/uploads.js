@@ -7,15 +7,16 @@ import { processer,ImageModle } from "./aiVictor.js";
 import pc from './pincoin.js'
 const uploadRouter=express.Router();
 
-uploadRouter.post('/upload/:id',auth,upload.array('picture',20),async(req,res)=>{
+uploadRouter.post('/upload/:id',upload.array('picture',20),async(req,res)=>{
 const nameOfspaceID=req.params.id 
 const socket =req.app.get('io')
+console.log(nameOfspaceID)
 if(!nameOfspaceID) return
 const userId=Number(req.params.id)
 
 const file =req.files
-
-if (!file) return
+console.log('no file or we have file',file)
+if (!file || file===[]) return console.log('nothing')
 try{
 let allStorage=0
 for(let i=0;i<file.length;i++){
@@ -61,7 +62,7 @@ const victoringImages = await Promise.all(
     })
     
 )
-
+console.log('her all good')
     const index = await pc.index(process.env.INDEXNAME)
  const records= await Promise.all(victoringImages.map(item=>(
     
@@ -73,7 +74,7 @@ const victoringImages = await Promise.all(
             }
 })
     ))
-if(records){
+if(!records){
        await index.namespace(nameOfspaceID).upsert({records})
 
 }
