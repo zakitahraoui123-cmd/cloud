@@ -16,7 +16,7 @@ function Login(){
 try {
      const res= await axios.post('/api/login',input,{withCredentials:true})
      const message=res.data
-     
+     console.log(message)
      if(message.id){
            userZUstand(message)
           navigat('/welcome')

@@ -14,14 +14,31 @@ import sendEmail from "./checkOtpRouter.js";
 import recoverRouter from "./recovery.js";
 import updatepasswordRoute from "./updatePasswordRouter.js";
 import newPasswordRouter from "./newPassword.js";
-
-
+import { Server } from "socket.io";
+import http from "http";
+import { userInfo } from "os";
 const app =express();
 const port =4000;
 app.use(cors({
     origin:true,
     credentials:true
 }))
+const server = http.createServer(app)
+const io = new Server(server,{
+    cors:{
+         origin:true,
+         credentials:true
+    }
+})
+app.set('io',io)
+io.on('connection',(socket)=>{
+    console.log(socket.id)
+    socket.on('userid',(userid)=>{
+        console.log(userid)
+        socket.join(`userid:${userid}`)
+    })
+
+})
 app.use('/my-uploads',express.static('my-uploads'))
 app.use(json())
 app.use(cookieParser())
@@ -40,7 +57,7 @@ async function start (){
 try {
     const res= await pool.query("SELECT NOW()")
     console.log('here near to start server')
-    app.listen(port,()=>{
+    server.listen(port,()=>{
     console.log('app is runing on port 4000 and pg is connected')
 })
 } catch (error) {

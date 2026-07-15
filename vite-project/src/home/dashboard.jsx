@@ -2,7 +2,7 @@ import {useEffect, useRef, useState } from 'react';
 import './dashboard.css';
 import {Progress} from '@chakra-ui/react';
 import CountUp from '../component/CountUp'
-import {  motion, number } from 'framer-motion';
+import {  motion} from 'framer-motion';
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import useStore from './zustand';
 import {useNavigate } from 'react-router';
@@ -11,7 +11,7 @@ import Aimode from './ai';
 import imageCompression from 'browser-image-compression';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
-
+import {io} from 'socket.io-client';
 
 
  function Dashboard(){
@@ -28,8 +28,10 @@ import 'react-photo-view/dist/react-photo-view.css';
     const [deleteimg,setdeleteimg]=useState(false)
     const [selectTodelete,setselectTodelete]=useState(false)
     const [deletecancel,setdeletecancel]=useState()
+    const [scan,setscan] =useState(false)
     const togialRef=useRef()
     const togialDeleteRef=useRef()
+    const videoref=useRef(null)
     const navigat=useNavigate()
     const userInfo=useStore(state=>state.user)
     const updatepictureZU=useStore(state=>state.updateImg)
@@ -48,6 +50,41 @@ import 'react-photo-view/dist/react-photo-view.css';
             cen:'キャンセル'})
     }
   },[translate])
+       const format= new FormData();
+
+     const socket =io('https://www.zakiweb.space')
+
+       useEffect(()=>{
+    socket.on('connect',()=>{
+      
+      socket.emit('userid',userInfo.id)
+    })
+    socket.on('user data',(data)=>{
+      console.log('we get the user data in the socket',data);
+      if(data){
+             
+                  setTimeout(() => {
+                      setfile([])
+                    format.delete('picture')
+                    togialRef.current.close()
+                    inputref.current.value=''
+                    settotalLoad(0)
+                  }, 1000);
+
+                      const images=data.allImg
+               updatepictureZU(images)
+              const updateStorageX=data.userStorage
+        
+            updateStorage(updateStorageX)
+           
+             setviewall(images)
+      }
+      
+    })
+    return()=>{
+      socket.off('connect')
+    }
+   },[])
     if(!userInfo){
         return(<>
         <div className='box-of-err' >
@@ -55,7 +92,7 @@ import 'react-photo-view/dist/react-photo-view.css';
         </div>
         </>)
     }
-   
+ 
     const japanese = [
   { jp: 'クラウド' },
   { jp: 'すべての画像' },
@@ -83,9 +120,19 @@ import 'react-photo-view/dist/react-photo-view.css';
 
     async function hundelfile(){
         inputref.current.click()
+         videoref.current.muted=true
+       videoref.current.pause();
+        videoref.current.currentTime = 0;
             
     }
-     const format= new FormData();
+    function closefunc(){
+      togialRef.current.close()
+      videoref.current.muted=true
+       videoref.current.pause();
+        videoref.current.currentTime = 0;
+
+    }
+ 
 async function convert(){
   const checking=file.findIndex(item=>(
     !item.type.startsWith('image')
@@ -124,6 +171,8 @@ if(checking===-1){
   if(file.length!==0 && notimage===false){
     convert()
   }
+
+   
     async function getpic(){
        if(!userInfo?.id){
        return console.log('user not loaded yet')
@@ -131,7 +180,7 @@ if(checking===-1){
        if(notimage===true) return
     
      try {
-      console.log(format)
+          setscan(true)
            const respond= await axios.post(`/api/upload/${userInfo.id}`,format,{
             withCredentials:true,
             onUploadProgress:(progressEvent)=>{
@@ -139,35 +188,22 @@ if(checking===-1){
                 const total=progressEvent.total
                 const prox=(load*100/total).toFixed(2)
                   settotalLoad(prox)
-                  
-          
-              
+                
             }
           
-       
         })
        
-        const images=respond?.data?.allImg
-         if(images){
+        
+         if(respond.data.message==='ai finish'){
                
-                console.log('ok 100')
-                    settotalLoad(0)
-                    setfile([])
-                    format.delete('picture')
-                    togialRef.current.close()
-                    inputref.current.value=''
+         setTimeout(() => {
+            setscan(false)
+         }, 2000);
            
-                
             
          }
-         
-         updatepictureZU(images)
-        const updateStorageX=respond?.data?.userStorage
-        
-            updateStorage(updateStorageX)
-           setTimeout(()=>{
-             setviewall(images)
-           },1000)
+       
+           
      } catch (error) {
         console.error(error)
      }
@@ -178,7 +214,7 @@ if(checking===-1){
 
     async function logout(){
 
-        const respond= await axios.get('/api/logout',{withCredentials:true})
+        const respond= await axios.get(`/api/logout/${userInfo.id}`,{withCredentials:true})
         const logoutCheack=respond.data.message
         if(logoutCheack==='token delete'){ 
             navigat('/login')
@@ -188,6 +224,10 @@ if(checking===-1){
     }
 function getdialog(){
     togialRef.current.showModal()
+    videoref.current.muted=false
+     videoref.current.play();
+             videoref.current.currentTime = 0;
+
 }
 
     
@@ -210,7 +250,7 @@ setfile(Object.values(file).filter(item=>( item.name!==currentImg)
 
 function galeryOfpictures(){
     
-    const images=userInfo?.allImg
+    const images=userInfo.allImg?userInfo.allImg:[]
    
          setviewall(images)
     setgalery(!galery)
@@ -297,7 +337,7 @@ return(<>
       
          <p style={{fontFamily:'inherit',paddingTop:'2%',paddingLeft:'1%'}}>{translate?japanese[3].jp:'Upload Files'}</p>
         <button
-        onClick={()=>togialRef.current.close()}
+        onClick={closefunc}
         className='d-div'><img src='/close.png' /></button>
        </div>
        <div className='mid-box'> 
@@ -309,10 +349,11 @@ return(<>
         CLICK UPLOAD</button>
         <div className='video-up-div'>
               <video
+              ref={videoref}
         className='video-up'
   src="VID.mp4"
-  autoPlay
-  muted
+  
+  
   loop
   playsInline/>  
         </div>
@@ -343,7 +384,7 @@ return(<>
                 
                 <p style={{ fontSize: "clamp(8px, 2vw, 16px)" }}><span style={{color:'red',textDecoration:'underline',fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[6].jp:'Note'} : </span>
                 {translate?japanese[7].jp:'Images will be stored securely on an external server using secure protocols Under '}
-                    <span style={{color:'green',fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{userInfo.firstname}{translate?japanese[8].jp:''} </span> {!translate?'name. ':''}
+                    <span style={{color:'green',fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{!userInfo.firstname?'':userInfo.firstname}{translate?japanese[8].jp:''} </span> {!translate?'name. ':''}
                      {translate?japanese[9].jp:'AI may analyze them to improve search accuracy and provide more efficient results.'}
                 </p>
             </div>
@@ -381,7 +422,7 @@ return(<>
         <div className='user-info'>
             <img className='avatar' src='meerkat.png' />
             
-            <p className="user-name">{userInfo.firstname}</p>
+            {/* <p className="user-name">{userInfo.firstname}</p> */}
             <div className='plan'>Free Plan</div>
         </div>
         <div className='picture-info'>
@@ -407,7 +448,7 @@ return(<>
              <p className={'images-word'}>{translate?japanese[1].jp:'All Pictures'}</p>
                    <CountUp
                     from={0}
-                    to={userInfo.allImg?userInfo.allImg.length:0}
+                    to={userInfo.allImg.length?userInfo.allImg.length:0}
                     separator=","
                     direction="up"
                     duration={1}
@@ -463,8 +504,10 @@ return(<>
                <div className='photo-div'>
                  <button
                 onClick={()=>setAI(!AI)}
-                className='search-btn'>
-                  <img className='cloud-img' src='chip.png' title='AI Search' />
+                className='search-btn'>{scan===false?
+                <img className='cloud-img' src='chip.png' title='AI Search' />:
+                <img className='cloud-img' src='Scan.gif' title='AI Search' />
+                }
                   </button>
                   <p className='icon-information'>Ai Search</p>
                </div>

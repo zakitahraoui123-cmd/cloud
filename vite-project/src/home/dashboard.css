@@ -278,8 +278,9 @@ color: rgb(221, 200, 200);
 .cloud-img{
     
     object-fit: cover;
-    height: 60%;
+    height: 65%;
 }
+
 .icon-information{
 font-size: 14px;
 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -303,7 +304,7 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .checkbox{
-    position: absolute;
+    position: relative;
 
     z-index: 1;
    
@@ -416,6 +417,7 @@ font-weight: 200;
     font-weight: 600;
     font-size: 12px;
 }
+
 .cancel{
     margin-top: 10%;
     display: flex;
@@ -430,13 +432,7 @@ font-weight: 200;
     background-color: #d7dbe6;
     width: 100%;
 }
-.checkbox{
-    position: absolute;
 
-    z-index: 1;
-   
-    
-}
 
 .search{
     height: 10%;
@@ -476,8 +472,16 @@ font-weight: 200;
     margin-left: 5%;
     margin-bottom: 5%;
     transition: ease 0.4s;
+    z-index: 0;
     
 
+}
+.checkbox{
+    position:absolute;
+
+    z-index: 100;
+   
+    
 }
 .all-pic-div{
     width: 100%;
@@ -792,6 +796,7 @@ height: 70%;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     width: 60%;
+    height: 40dvh;
     gap: 0.6%;
      overflow-y: scroll;
      scrollbar-width: none;
