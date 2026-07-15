@@ -52,7 +52,7 @@ import {io} from 'socket.io-client';
   },[translate])
        const format= new FormData();
 
-     const socket =io('https://www.zakiweb.space')
+     const socket =io('/')
 
        useEffect(()=>{
     socket.on('connect',()=>{
