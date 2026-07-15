@@ -379,7 +379,7 @@ return(<>
             <div className='picture-info-left'>
                <div className='num-size'>
                  <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[4].jp:'Total Number'} : {file.length}</p>
-                <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[5].jp:'Total Size '}: {!totalSize?'N/A':totalSize} MB</p>
+                <p style={{fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[5].jp:'Total Size '}: {!totalSize?'N/A':(totalSize).toFixed(2)} MB</p>
                </div>
                 
                 <p style={{ fontSize: "clamp(8px, 2vw, 16px)" }}><span style={{color:'red',textDecoration:'underline',fontSize: "clamp(8px, 2vw, 16px)",fontWeight:'700'}}>{translate?japanese[6].jp:'Note'} : </span>
