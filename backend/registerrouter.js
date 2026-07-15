@@ -27,10 +27,10 @@ registerRoute.post('/register',async(req,res)=>{
     
         const registerInfo=await pool.query('INSERT INTO user_info(name,last_name,phone,password,email) values ($1,$2,$3,$4,$5) RETURNING id , last_name ,name',[userinfo.firstname,userinfo.lastname,userinfo.phone,hashing,userinfo.email])
         const id =registerInfo.rows[0].id
-        const clouding = await pool.query('INSERT INTO cloud_storage (user_cloud_id) VALUES ($1)',[id])
+        const clouding = await pool.query('INSERT INTO cloud_storage (user_cloud_id,storage) VALUES ($1,$2)',[id,0])
         const firstname=registerInfo.rows[0].name
         const lastName=registerInfo.rows[0].last_name
-       
+      
         const token = jwt.sign({id:id},process.env.SECRET_KEY,{expiresIn:'24H'})
         res.cookie('token',token,{
             sameSite:"strict",
