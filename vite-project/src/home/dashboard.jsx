@@ -12,6 +12,7 @@ import imageCompression from 'browser-image-compression';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import {io} from 'socket.io-client';
+     const socket =io('/')
 
 
  function Dashboard(){
@@ -52,7 +53,6 @@ import {io} from 'socket.io-client';
   },[translate])
        const format= new FormData();
 
-     const socket =io('/')
 
        useEffect(()=>{
     socket.on('connect',()=>{
