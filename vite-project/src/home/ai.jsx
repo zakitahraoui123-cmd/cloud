@@ -81,7 +81,7 @@ function Aimode({mode,value,translate}){
                     <div className='ai-place'> {value===true?<button
                     title={translate?'ホーム':'HOME'}
                 onClick={()=>mode(!value)}
-                className='light'><img  className='light-icon' src='light.gif' /></button>:''}
+                className='light'><img  className='light-icon' src='roboto.gif' /></button>:''}
                     </div>
                    
                  <div className='info'>
