@@ -74,7 +74,7 @@ console.log('her all good')
             }
 })
     ))
-if(!records){
+if(records){
        await index.namespace(nameOfspaceID).upsert({records})
 
 }
