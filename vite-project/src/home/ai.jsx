@@ -162,11 +162,14 @@ function Aimode({mode,value,translate}){
                     <div className='image-place'>
                         {trueimg===true? 
                          <div className='ai-result'> 
-                            <p style={{color:'black'}}>{choosen?'':topResult}</p>
-                             <img className='result-img' src={`/${choosen?choosen:images}`} />
+                            <p style={{color:'green',fontWeight:'600'}}>{choosen?'':`~${topResult}~`}</p>
+                            <div className='top-result-div'>
+                             <img className='result-img'  src={`/${choosen?choosen:images}`} />
+
+                            </div>
                             </div>
                            
-                        :''}
+                        :''} 
                     </div>
                    </div>
                 </div>

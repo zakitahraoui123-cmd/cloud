@@ -5,6 +5,7 @@ import auth from "./tokenCheck.js";
 import {RawImage} from '@huggingface/transformers';
 import { processer,ImageModle } from "./aiVictor.js";
 import pc from './pincoin.js'
+import fs from'fs';
 const uploadRouter=express.Router();
 
 uploadRouter.post('/upload/:id',upload.array('picture',20),async(req,res)=>{
@@ -15,6 +16,10 @@ if(!nameOfspaceID) return
 const userId=Number(req.params.id)
 
 const file =req.files
+const filepath =file[0].path
+const bf =await fs.readFileSync(filepath)
+const base = bf.toString('base64')
+console.log('base',base)
 console.log('no file or we have file',file)
 if (!file || file===[]) return console.log('nothing')
 try{

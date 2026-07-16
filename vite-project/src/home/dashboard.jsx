@@ -108,7 +108,12 @@ import {io} from 'socket.io-client';
   { jp:'追加'},
   { jp:'アップロード'},
   { jp: 'ログアウト' },
-   {jp:'最大容量：5GB'}
+  {jp:'最大容量：5GB'},
+  { jp: '写真' },          // Photo
+  { jp: 'AI 検索' },        // AI Search
+  { jp: '日本語' }, 
+  { jp: '無料プラン' }
+
 ]
 
 
@@ -437,7 +442,7 @@ return(<>
             <img className='avatar' src='meerkat.png' />
             
             <p className="user-name">{userInfo.firstname}</p>
-            <div className='plan'>Free Plan</div>
+            <div className='plan'>{translate?japanese[22].jp:'Free Plan'}</div>
         </div>
         <div className='picture-info'>
                 <p className='text'>{translate?japanese[0].jp:'Cloud Storage'}</p>
@@ -513,7 +518,7 @@ return(<>
                 className='search-btn'>
                   <img className='cloud-img' src='home-button.png' title='Galery' />
                   </button>
-                  <p className='icon-information'>Photo</p>
+                  <p className='icon-information'>{translate?japanese[19].jp:'Photo'}</p>
                 </div>
                <div className='photo-div'>
                  <button
@@ -523,7 +528,7 @@ return(<>
                 <img className='cloud-img' src='Scan.gif' title='AI Search' />
                 }
                   </button>
-                  <p className='icon-information'>Ai Search</p>
+                  <p className='icon-information'>{translate?japanese[20].jp:'Ai Search'}</p>
                </div>
                 
                              
@@ -533,7 +538,7 @@ return(<>
                  className='search-btn'>
                   <img  className='cloud-img' src='/cloud-computing.png' title='upload images' />
                   </button>
-                  <p className='icon-information'>Upload</p>
+                  <p className='icon-information'>{translate?japanese[12].jp:'Upload'}</p>
                </div>
               <div className='photo-div'>
                    <button
@@ -542,7 +547,7 @@ return(<>
                   <img className='cloud-img' src='/translation.png' title='JP/EN' />
                  
                  </button>
-                 <p className='icon-information'>Translate</p>
+                 <p className='icon-information'>{translate?japanese[21].jp:'English'}</p>
               </div>
                  <input 
                  multiple
@@ -572,6 +577,7 @@ return(<>
                   onChange={check}
                   className='checkbox'
                   type='checkbox'
+                  
                 />
               )}
 
