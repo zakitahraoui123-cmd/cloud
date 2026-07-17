@@ -35,7 +35,9 @@ return (
   <div className='home-button'>
     <button
     onClick={()=>navigat('/')}
-    className='home-btn'>HOME</button>
+    className='home-btn'>
+      <img className='arrwo' src='arrow.png' />
+      Back to Home</button>
   </div>
 
 <div className="big-box">

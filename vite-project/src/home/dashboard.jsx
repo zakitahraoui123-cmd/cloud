@@ -109,8 +109,8 @@ import {io} from 'socket.io-client';
   { jp:'アップロード'},
   { jp: 'ログアウト' },
   {jp:'最大容量：5GB'},
-  { jp: '写真' },          // Photo
-  { jp: 'AI 検索' },        // AI Search
+  { jp: '写真' },          
+  { jp: 'AI 検索' },        
   { jp: '日本語' }, 
   { jp: '無料プラン' }
 
@@ -179,13 +179,13 @@ if(checking===-1){
   
    
 
-     if(!userInfo){
-        return(<>
-        <div className='box-of-err' >
-            <img className='err-img' src='/2065682.jpg' />
-        </div>
-        </>)
-    }
+    //  if(!userInfo){
+    //     return(<>
+    //     <div className='box-of-err' >
+    //         <img className='err-img' src='/2065682.jpg' />
+    //     </div>
+    //     </>)
+    // }
 
    
     async function getpic(){

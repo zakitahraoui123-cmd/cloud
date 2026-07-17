@@ -478,6 +478,7 @@ font-weight: 200;
 }
 .checkbox{
     position:absolute;
+    z-index: 2000;
     
    
     

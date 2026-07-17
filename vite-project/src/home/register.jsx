@@ -44,7 +44,9 @@ return (<div className='body-r'>
      <div className='home-button-r'>
     <button
     onClick={()=>navigat('/')}
-    className='home-btn-r'>HOME</button>
+    className='home-btn'>
+         <img className='arrwo' src='arrow.png' />
+        Back to Home</button>
   </div>
     <form onSubmit={submitform} className="big-box-r">
         <div className='email-box-r'>
