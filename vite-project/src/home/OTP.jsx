@@ -33,7 +33,7 @@ export default function VerifyCode() {
        { withCredentials:true,
         timeout:3000
        }) 
-      const messagex=responde.data
+      const messagex=responde?.data
      console.log(messagex)
      if(messagex.id){
            userZUstand(messagex)

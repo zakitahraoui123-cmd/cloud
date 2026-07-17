@@ -30,14 +30,14 @@ registerRoute.post('/register',async(req,res)=>{
         const clouding = await pool.query('INSERT INTO cloud_storage (user_cloud_id,storage) VALUES ($1,$2)',[id,0])
         const firstname=registerInfo.rows[0].name
         const lastName=registerInfo.rows[0].last_name
-      
+        const userStorage=0
         const token = jwt.sign({id:id},process.env.SECRET_KEY,{expiresIn:'24H'})
         res.cookie('token',token,{
             sameSite:"strict",
             httpOnly:true,
             maxAge:24*60*60*1000
         })
-    return res.status(200).json({firstname,lastName,id})
+    return res.status(200).json({firstname,lastName,id,userStorage})
     } catch (error) {
         console.log(error)
         res.status(500).json(error)

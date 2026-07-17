@@ -68,7 +68,7 @@ function Aimode({mode,value,translate}){
        }
        }, 2500);
    },[translate])
-    
+
     
      
     return(

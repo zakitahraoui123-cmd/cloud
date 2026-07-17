@@ -4,22 +4,23 @@ import auth from './tokenCheck.js';
 import {token,textModel} from './aiVictor.js';
 import pc from './pincoin.js';
 import client from './redis.js';
+import translite from './nvidia.js';
 
 dotenv.config();
 
 const userQuastions=express.Router();
 
 userQuastions.post('/quastion/:id',auth,async(req,res)=>{
-    
+    console.log('here')
    const {id}=req.params
    
    const {message}=req.body
    const mgx = message.user
+
    if (! id ||!mgx) return res.status(400).json({message:'invalid input the msg or id not found'})
-  
+        const msgT= await translite(mgx)
         try {
-            
-        const tokenIzer = await token(mgx,{
+        const tokenIzer = await token(msgT,{
             truncation:true,
             padding:true,
             return_tensor:true
