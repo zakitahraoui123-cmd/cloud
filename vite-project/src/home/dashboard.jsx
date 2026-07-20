@@ -567,7 +567,7 @@ return(<>
                  />
             </div>
                 {AI !== true && (
-  <div className='all-pic'>
+  <div className={galery?'all-pic':'all-pic2'}>
     {/* <p>{welcom}</p> */}
     {galery === true ? (
       <PhotoProvider>
@@ -598,7 +598,7 @@ return(<>
           </PhotoView>
         ))}
       </PhotoProvider>
-    ):<div className='empty-pic'><img className='brain-img' src='brain.gif' /></div>}
+    ):<img className='brain-img' src='brain.gif' />}
 
   </div>
 )}
