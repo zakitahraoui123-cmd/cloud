@@ -22,13 +22,13 @@
     display: flex;
     flex-direction: column;
     margin-left: 0.5%;
-    width: 15%;
     height: 100%;
     backdrop-filter: blur(2px);
 }   
 @keyframes show {
   to {
     opacity: 1;
+    
     transform: translateY(0px);
   }
 }
@@ -443,6 +443,12 @@ font-weight: 200;
     color: #000000;
     font-weight: 600;
     font-size: 12px;
+}
+.middel-page{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
 }
 
 .cancel{
