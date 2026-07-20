@@ -95,7 +95,7 @@ function Aimode({mode,value,translate}){
                                  ref={Airef}
                                  className='ai-picture' >
                                   
-                                 <img style={{width:'19%',position:'relative',left:'-6px',top:'30px'}} src='cloud-ins.gif' />
+                                 <img style={{width:'19%',position:'relative',left:'-6px',top:'30px'}} src='cloud-ans.gif' />
                                  
                                     <div className='other-img'>
                                          {window.innerWidth<685?<p className='top'>TOP RESULTE</p>:''}
