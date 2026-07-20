@@ -6,8 +6,8 @@
     
     height: 100vh;
     width: 100vw;
-background: linear-gradient(135deg,#e4cadf, #F5F1FF,#F8FAFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-size: cover;
+    background-color: #f0f2fa;
     display: flex;
     
 }
@@ -24,7 +24,6 @@ background: linear-gradient(135deg,#e4cadf, #F5F1FF,#F8FAFF); /* W3C, IE 10+/ Ed
     margin-left: 0.5%;
     width: 15%;
     height: 100%;
-    background: linear-gradient(rgb(241, 192, 192),rgb(206, 252, 216));
     backdrop-filter: blur(2px);
 }   
 @keyframes show {
@@ -283,7 +282,20 @@ color: rgb(221, 200, 200);
 
 .icon-information{
 font-size: 14px;
+color: #000000;
 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.icon-information:hover{
+font-size: 14px;
+color: #f858f0;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+cursor: pointer;
+}
+.icon-information:active{
+font-size: 14px;
+color: #48c9fc;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+cursor: pointer;
 }
 
 .all-pic{

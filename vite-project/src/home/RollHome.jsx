@@ -217,7 +217,7 @@ const COPY = {
       privacy: "プライバシー",
       contact: "お問い合わせ",
       login: "ログイン",
-      register: "無料で5GB始める",
+      register: "無料で5GB",
       registerMobile:
         "登録 — 無料で5GB"
     },
@@ -372,7 +372,7 @@ const COPY = {
         "質問、提案、フィードバックがございましたら、いつでもご連絡ください。",
 
       email:
-        "zakitahraoui123@gmail.com"
+        "cloudaistoragejp@gmail.com"
     },
 
 

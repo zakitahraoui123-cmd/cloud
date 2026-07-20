@@ -26,6 +26,7 @@ import {io} from 'socket.io-client';
     const [AI,setAI]=useState(false)
     const [deleteimage,setdeleteimage]=useState([])
     const inputref=useRef(null)
+    // const [welcom,setwelcom]=useState('')
     const [deleteimg,setdeleteimg]=useState(false)
     const [selectTodelete,setselectTodelete]=useState(false)
     const [deletecancel,setdeletecancel]=useState()
@@ -42,7 +43,16 @@ import {io} from 'socket.io-client';
              const formatRef=useRef(new FormData());
              const socketRef=useRef(null)
 
-    console.log(cloud)
+             //this  good idea but need to be in better way
+// useEffect(()=>{
+//       let count =1;
+// setInterval(() => {
+//   count++;
+//           let wel=['','','hi','how ar u','im zaki web developer this is just welcom','ai cloud is way to find your images using ai']
+// console.log(count)
+// setwelcom(wel[count])
+// },4000)
+// },[])
       useEffect(()=>{
       if(!translate){
         setdeletecancel({
@@ -340,9 +350,7 @@ async function deleteinTheback(){
     catch(error){
         console.error(error)
     }
-    
 
-    
 }
 return(<>
 
@@ -455,7 +463,7 @@ return(<>
           <p className='pro-txt2'>used</p>
           </CircularProgressLabel>
             </CircularProgress>     
-            <p  className='gb'><span className='mb'>{((cloud*100)/5000).toFixed(2)} MB </span>/ 5 GB</p>
+            <p  className='gb'><span className='mb'>{cloud} MB </span>/ 5 GB</p>
         
     </div>
         <div className='still'>
@@ -516,7 +524,7 @@ return(<>
                   <button 
                 onClick={galeryOfpictures}
                 className='search-btn'>
-                  <img className='cloud-img' src='home-button.png' title='Galery' />
+                  <img className='cloud-img' src='gallery.png' title='Galery' />
                   </button>
                   <p className='icon-information'>{translate?japanese[19].jp:'Photo'}</p>
                 </div>
@@ -524,7 +532,7 @@ return(<>
                  <button
                 onClick={()=>setAI(!AI)}
                 className='search-btn'>{scan===false?
-                <img className='cloud-img' src='chip.png' title='AI Search' />:
+                <img className='cloud-img' src='ai.png' title='AI Search' />:
                 <img className='cloud-img' src='Scan.gif' title='AI Search' />
                 }
                   </button>
@@ -560,7 +568,7 @@ return(<>
             </div>
                 {AI !== true && (
   <div className='all-pic'>
-
+    {/* <p>{welcom}</p> */}
     {galery === true && (
       <PhotoProvider>
         {viewall?.map((item, index) => (

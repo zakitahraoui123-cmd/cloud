@@ -54,7 +54,9 @@ app.use('/api',sendEmail)
 app.use('/api',recoverRouter)
 app.use('/api',updatepasswordRoute)
 app.use('/api',newPasswordRouter)
+
 async function start (){
+
 try {
     const res= await pool.query("SELECT NOW()")
     console.log('here near to start server')
