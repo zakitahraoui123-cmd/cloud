@@ -415,9 +415,9 @@ font-weight: 200;
     margin-top: 2%;
 }
 .brain-img{
-    width:100%;
-    height: 100%;
-    margin-right:0%;
+    
+    object-fit:fill;
+
 }
 .search-btn{
     display: flex;
@@ -447,7 +447,7 @@ font-weight: 200;
 .middel-page{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 70%;
     height: 100%;
 }
 
