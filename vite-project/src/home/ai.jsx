@@ -86,7 +86,7 @@ function Aimode({mode,value,translate}){
                             <div className='display' key={i}>
                               {item.userText?<div className='answer'>
                                  <div className='answer-div'>
-                                     <img className='avatarUser' src='./meerkat.png' />
+                                     <img className='avatarUser' src='./user-message-img.gif' />
                                 <p className='textMessage'>{item.userText}</p>
                                  </div>                                
                               </div>:''}
