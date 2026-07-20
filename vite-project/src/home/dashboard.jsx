@@ -454,7 +454,7 @@ return(<>
         </div>
         <div className='picture-info'>
                 <p className='text'>{translate?japanese[0].jp:'Cloud Storage'}</p>
-        <CircularProgress style={{display:'flex',alignItems:'center',justifyContent:'center',height:'73%',strokeLinecap:'round'}} value={(cloud*100)/5000} size="100%" 
+        <CircularProgress style={{display:'flex',alignItems:'center',justifyContent:'center',height:'68%',strokeLinecap:'round'}} value={(cloud*100)/5000} size="100%" 
         color={'rgb(147, 15, 165)'}
         trackColor="rgb(211, 207, 207)"
         >
