@@ -189,13 +189,13 @@ if(checking===-1){
   
    
 
-    //  if(!userInfo){
-    //     return(<>
-    //     <div className='box-of-err' >
-    //         <img className='err-img' src='/2065682.jpg' />
-    //     </div>
-    //     </>)
-    // }
+     if(!userInfo){
+        return(<>
+        <div className='box-of-err' >
+            <img className='err-img' src='/2065682.jpg' />
+        </div>
+        </>)
+    }
 
    
     async function getpic(){
@@ -447,7 +447,7 @@ return(<>
     <div className='right-side'>
                    
         <div className='user-info'>
-            <img className='avatar' src='meerkat.png' />
+            <img className='avatar' src='meerkat.gif' />
             
             <p className="user-name">{userInfo.firstname}</p>
             <div className='plan'>{translate?japanese[22].jp:'Free Plan'}</div>
@@ -569,7 +569,7 @@ return(<>
                 {AI !== true && (
   <div className='all-pic'>
     {/* <p>{welcom}</p> */}
-    {galery === true && (
+    {galery === true ? (
       <PhotoProvider>
         {viewall?.map((item, index) => (
           <PhotoView
@@ -598,7 +598,7 @@ return(<>
           </PhotoView>
         ))}
       </PhotoProvider>
-    )}
+    ):<div className='empty-pic'><img className='brain-img' src='brain.gif' /></div>}
 
   </div>
 )}

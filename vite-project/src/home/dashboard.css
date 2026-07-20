@@ -88,8 +88,8 @@ font-weight:bolder;
 }
 .avatar{
     object-fit:fill;
-    margin-top: 1%;
-    width: 30%;
+    margin-top: 0%;
+    width: 36%;
     
 }
 /* 
@@ -291,12 +291,7 @@ color: #f858f0;
 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 cursor: pointer;
 }
-.icon-information:active{
-font-size: 14px;
-color: #48c9fc;
-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-cursor: pointer;
-}
+
 
 .all-pic{
      display:grid;
@@ -306,16 +301,31 @@ cursor: pointer;
     overflow-y: scroll;
     scrollbar-width: none;
     height: 90%;
-    
     padding: 1%;
-     backdrop-filter: blur(6px);
     margin: 0.6%;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0px 0px 20px 1px rgb(188, 183, 192);
     
 }
-
-.checkbox{
+.empty-pic{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90dvw;
+    
+    height: 85dvh;
+}
+.brain{
+    width: 10%;
+}
+.brain-img{
+    width:100%;
+    
+    height: 100dvh;
+    margin-right:8%;
+}
+    .checkbox{
     position: absolute;
    background-color: #511483;  
     z-index: 100;
@@ -385,7 +395,7 @@ cursor: pointer;
 }
 
 .ai-img{
-    width:50%;
+    width:45%;
 }
 .powered{
 color: #535351;
@@ -403,6 +413,11 @@ font-weight: 200;
     font-size: 10px;
     font-weight: 500;
     margin-top: 2%;
+}
+.brain-img{
+    width:100%;
+    height: 100%;
+    margin-right:0%;
 }
 .search-btn{
     display: flex;
@@ -461,9 +476,10 @@ font-weight: 200;
     grid-template-columns: repeat(4,1fr);
     align-content: first baseline;
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-width: none;
     height: 100dvh;
-    
+        
     padding: 1%;
      backdrop-filter: blur(6px);
     margin: 0.6%;
