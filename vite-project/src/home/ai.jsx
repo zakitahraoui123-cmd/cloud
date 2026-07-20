@@ -78,11 +78,7 @@ function Aimode({mode,value,translate}){
                 <div className="first">
                     <div className='up-first'>
                         
-                    <div className='ai-place'> {value===true?<button
-                    title={translate?'ホーム':'HOME'}
-                onClick={()=>mode(!value)}
-                className='light'><img  className='light-icon' src='roboto.gif' /></button>:''}
-                    </div>
+                   
                    
                  <div className='info'>
                     <div className='message'>
@@ -162,7 +158,7 @@ function Aimode({mode,value,translate}){
                     <div className='image-place'>
                         {trueimg===true? 
                          <div className='ai-result'> 
-                            <p style={{color:'green',fontWeight:'600'}}>{choosen?'':`~${topResult}~`}</p>
+                           <div className='top'>{choosen?'':`~${topResult}~`}</div>
                             <div className='top-result-div'>
                              <img className='result-img'  src={`/${choosen?choosen:images}`} />
 
