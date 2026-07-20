@@ -393,6 +393,7 @@ height:84.6dvh ;
 
 .ai-img{
     width:50%;
+    rotate: 90deg;
 }
 .powered{
 color: #535351;
@@ -479,6 +480,14 @@ font-weight: 200;
    box-shadow: 0px 0px 3px 1px rgb(165, 162, 164);
     
 }
+.brain-img{
+
+width: 99.7%;
+height:100dvh ;
+
+
+}
+
 .avatar{
     object-fit:fill;
     margin-top: 1%;
