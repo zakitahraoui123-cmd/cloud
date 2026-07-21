@@ -304,13 +304,14 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background:linear-gradient(rgb(210, 225, 235),#4e7392);
 
 }
 
 
 .image-welcom{
-    width: 100dvw;
-    height: 100dvh;
+    width: 10dvw;
+    
 }
 
 

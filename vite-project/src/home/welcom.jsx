@@ -6,7 +6,7 @@ function Welcome(){
     const navigate=useNavigate(null)
     setTimeout(()=>{
         navigate('/dash')
-    },122400)
+    },166666400)
 return (<div className='body-x'>
     
     
