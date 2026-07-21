@@ -103,14 +103,7 @@ return (<div className='body-r'>
       </button>:<img className='wait-icon-r' src='/wait.gif' />}
       </div>
 </form>
- <footer>
-        
-          <div className="foting" >
-            <img style={{width:'50%'}} src="/dots.gif" />
-          </div>
-          
-        
-      </footer>
+ 
 </div>)
 }
 

@@ -81,14 +81,7 @@ return (
    
 
 </div>
- <footer>
-        
-          <div className="foting" >
-            <img style={{width:'50%'}} src="/dots.gif" />
-          </div>
-          
-        
-      </footer>
+
 
 </div>)
 }

@@ -112,12 +112,12 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "linear-gradient(to right, #CC86D1, #DCFFBD)",
+     background: "linear-gradient(to right, #f5f3f5, #cdd9db)",
   },
 
   card: {
     width: "350px",
-    background: "linear-gradient(to right, #CC86D1, #DCFFBD)",
+    backdropFilter:'blur(10px)',
     padding: "30px",
     borderRadius: "10px",
     boxShadow: "0 0 10px rgba(0,0,0,0.1)",

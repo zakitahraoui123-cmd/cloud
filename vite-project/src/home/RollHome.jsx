@@ -22,8 +22,11 @@ import {
   Mail,
   User,
   FileText,
+  Network,
+  BarChart3,
 } from "lucide-react";
 
+import "./RollHome.css";
 
 // ---------------------------------------------------------------------------
 // All copy, in both languages.
@@ -55,6 +58,13 @@ const COPY = {
         "No credit card. Cancel anytime. 5GB is yours forever.",
       searchDemo:
         "dog at the beach",
+      badges: {
+        upload: "Fast upload",
+        aiSearch: "AI search",
+        secure: "Secure storage",
+        organize: "Smart organization",
+        storage: "5GB free storage",
+      },
     },
 
 
@@ -247,6 +257,13 @@ const COPY = {
 
       searchDemo:
         "浜辺にいる犬",
+      badges: {
+        upload: "高速アップロード",
+        aiSearch: "AI検索",
+        secure: "安全な保存",
+        organize: "スマート整理",
+        storage: "無料5GBストレージ",
+      },
     },
 
 
@@ -324,10 +341,10 @@ const COPY = {
     about: {
       eyebrow: "自己紹介",
 
-      title: "Zaki Tahraoui — フルスタックエンジニア",
+      title: "Zakaria Tahraoui — フルスタックエンジニア",
 
       text:
-        "私はZaki Tahraoui、日本を拠点に活動するフルスタックエンジニアです。フロントエンド開発、バックエンドアーキテクチャ、データベース、クラウドインフラ、AIソリューションに強みを持ち、モダンなWebアプリケーションの構築を専門としています。",
+        "私はZakaria Tahraoui、日本を拠点に活動するフルスタックエンジニアです。フロントエンド開発、バックエンドアーキテクチャ、データベース、クラウドインフラ、AIソリューションに強みを持ち、モダンなWebアプリケーションの構築を専門としています。",
 
       skills:
         "フロントエンドではHTML、CSS、JavaScript、React.js、レスポンシブUIデザイン、モダンなフロントエンドライブラリを扱います。バックエンドではNode.jsとExpress.jsを用いて安全でスケーラブルなAPIを構築します。PostgreSQLデータベースの設計・運用、認証システムの実装、ファイルアップロード処理、リアルタイム機能の構築にも携わってきました。",
@@ -392,20 +409,107 @@ const COPY = {
       "English"
   }
 };
-const TILES = [
-  { id: 1, icon: Dog, hue: "34 70% 55%" },
-  { id: 2, icon: Cake, hue: "350 65% 58%" },
-  { id: 3, icon: Mountain, hue: "205 40% 45%" },
-  { id: 4, icon: Dog, hue: "28 55% 48%" },
-  { id: 5, icon: Sun, hue: "18 80% 55%" },
-  { id: 6, icon: PartyPopper, hue: "280 45% 55%" },
-  { id: 7, icon: Cat, hue: "40 30% 50%" },
-  { id: 8, icon: Building2, hue: "220 30% 35%" },
-  { id: 9, icon: Baby, hue: "10 60% 65%" },
-  { id: 10, icon: UtensilsCrossed, hue: "95 30% 40%" },
-  { id: 11, icon: Flower2, hue: "330 50% 60%" },
-  { id: 12, icon: Snowflake, hue: "200 25% 55%" },
+
+// Scattered "photo" cards floating over the cloud in the hero visual.
+// One entry (isHero: true) is rendered larger, like the focal photo in the reference shot.
+const SCATTER_CARDS = [
+  { icon: Dog, hue: "34 70% 55%", top: "20%", left: "8%", size: 64, rotate: -8 },
+  { icon: Cake, hue: "350 65% 58%", top: "10%", left: "23%", size: 54, rotate: 6 },
+  { icon: Flower2, hue: "330 50% 60%", top: "14%", left: "46%", size: 48, rotate: -5 },
+  { icon: PartyPopper, hue: "280 45% 55%", top: "10%", left: "68%", size: 52, rotate: 8 },
+  { icon: Mountain, hue: "205 40% 45%", top: "30%", left: "36%", size: 60, rotate: -4 },
+  { icon: Sun, hue: "18 80% 55%", top: "32%", left: "58%", size: 148, rotate: 0, isHero: true },
+  { icon: Dog, hue: "28 55% 48%", top: "44%", left: "16%", size: 62, rotate: 5 },
+  { icon: Cat, hue: "40 30% 50%", top: "54%", left: "32%", size: 54, rotate: -6 },
+  { icon: Baby, hue: "10 60% 65%", top: "66%", left: "44%", size: 52, rotate: -3 },
+  { icon: UtensilsCrossed, hue: "95 30% 40%", top: "68%", left: "60%", size: 56, rotate: 6 },
+  { icon: Building2, hue: "220 30% 35%", top: "70%", left: "14%", size: 56, rotate: 4 },
+  { icon: Snowflake, hue: "200 25% 55%", top: "74%", left: "76%", size: 52, rotate: 3 },
 ];
+
+function scatterCardStyle(card) {
+  return {
+    top: card.top,
+    left: card.left,
+    width: card.size,
+    height: card.size,
+    background: `hsl(${card.hue})`,
+    transform: `rotate(${card.rotate}deg)`,
+  };
+}
+
+function CloudScene({ t }) {
+  const badges = [
+    { icon: UploadCloud, label: t.hero.badges.upload, style: { top: "4%", left: "2%" } },
+    { icon: Sparkles, label: t.hero.badges.aiSearch, style: { top: "-2%", left: "34%" } },
+    { icon: ShieldCheck, label: t.hero.badges.secure, style: { bottom: "6%", left: "0%" } },
+    { icon: Network, label: t.hero.badges.organize, style: { bottom: "-4%", left: "38%" } },
+    { icon: BarChart3, label: t.hero.badges.storage, style: { bottom: "2%", right: "0%" } },
+  ];
+
+  return (
+    <div className="cloud-scene">
+
+      <svg
+        className="cloud-shape"
+        viewBox="0 0 900 460"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="cloudFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#dceefb" />
+          </linearGradient>
+        </defs>
+        <path
+          fill="url(#cloudFill)"
+          d="M110,320 Q100,230 190,225 Q195,140 285,145 Q325,75 410,105
+             Q490,55 570,105 Q660,85 695,165 Q775,165 780,240
+             Q840,265 815,330 Q835,390 770,400 L160,400
+             Q90,390 110,320 Z"
+        />
+      </svg>
+
+      {SCATTER_CARDS.map((card, i) => {
+        const Icon = card.icon;
+        return (
+          <div
+            key={i}
+            className={`scatter-card${card.isHero ? " hero-card" : ""}`}
+            style={scatterCardStyle(card)}
+          >
+            <Icon size={card.isHero ? 56 : Math.round(card.size * 0.4)} />
+          </div>
+        );
+      })}
+
+      {badges.map((badge, i) => {
+        const Icon = badge.icon;
+        return (
+          <div className="badge-chip" key={i} style={badge.style}>
+            <span className="badge-icon">
+              <Icon size={14} />
+            </span>
+            {badge.label}
+          </div>
+        );
+      })}
+
+      <div className="search-pill-floating">
+        <Search size={14} />
+        {t.hero.searchDemo}
+      </div>
+
+      <span className="accent-dot" style={{ top: "18%", left: "3%" }} />
+      <span className="accent-dot" style={{ bottom: "20%", right: "10%" }} />
+      <span className="accent-square" style={{ top: "8%", right: "20%" }} />
+      <span className="accent-square" style={{ bottom: "12%", left: "24%" }} />
+      <span className="accent-ring" style={{ top: "40%", right: "6%" }} />
+      <span className="accent-triangle" style={{ bottom: "30%", left: "6%" }} />
+
+    </div>
+  );
+}
 
 
 const FEATURE_ICONS = [
@@ -495,1056 +599,6 @@ export default function RollHome() {
 
     <div className={`page ${isJa ? "lang-ja" : ""}`}>
 
-      <style>{`
-
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,560;0,9..144,680;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
-
-
-        :root {
-
-          --ink:#5a3658;
-
-          --ink-dim:#020201;
-
-          --ink-faint:#000;
-
-          --base:
-          linear-gradient(
-            to right,
-            #CC86D1,
-            #DCFFBD
-          );
-
-          --base-2:#82b176;
-
-          --panel:#ad5493;
-
-          --paper:#ffffff;
-
-          --safelight:#171c1d;
-
-          --sand:#d9c8a9;
-
-
-          --radius-lg:22px;
-
-          --radius-md:14px;
-
-
-          --font-display:'Fraunces',serif;
-
-          --font-body:'Inter',sans-serif;
-
-          --font-mono:'JetBrains Mono',monospace;
-
-        }
-
-
-
-        *{
-          box-sizing:border-box;
-        }
-
-
-
-        .page{
-
-          background:var(--base);
-
-          color:var(--ink);
-
-          font-family:var(--font-body);
-
-          min-height:100vh;
-
-          overflow-x:hidden;
-
-          position:relative;
-
-          line-height:1.5;
-
-        }
-
-
-
-        .page.lang-ja{
-
-          font-family:'Noto Sans JP',var(--font-body);
-
-        }
-
-
-
-        .page.lang-ja h1,
-        .page.lang-ja h2,
-        .page.lang-ja h3{
-
-          font-family:'Noto Sans JP',var(--font-display);
-
-          letter-spacing:0;
-
-        }
-
-
-
-        .wrap{
-
-          max-width:1180px;
-
-          margin:0 auto;
-
-          padding:0 32px;
-
-          position:relative;
-
-          z-index:1;
-
-        }
-
-
-
-        a{
-
-          color:inherit;
-
-          text-decoration:none;
-
-        }
-
-
-
-        button{
-
-          font-family:inherit;
-
-          cursor:pointer;
-
-        }
-
-
-
-        /* sprocket */
-
-
-        .sprocket-strip{
-
-          display:flex;
-
-          justify-content:space-between;
-
-          padding:0 32px;
-
-          position:relative;
-
-          z-index:1;
-
-        }
-
-
-        .sprocket-hole{
-
-          width:8px;
-
-          height:8px;
-
-          border-radius:2px;
-
-          background:var(--base-2);
-
-          border:1px solid rgba(245,239,226,.06);
-
-        }
-
-
-
-        /* NAV */
-
-
-        .nav{
-
-          position:sticky;
-
-          top:0;
-
-          z-index:40;
-
-          background:
-          rgba(148,100,142,.86);
-
-          backdrop-filter:blur(10px);
-
-          border-bottom:
-          1px solid rgba(245,239,226,.08);
-
-        }
-
-
-
-        .nav-inner{
-
-          display:flex;
-
-          align-items:center;
-
-          justify-content:space-between;
-
-          padding:18px 32px;
-
-          max-width:1180px;
-
-          margin:auto;
-
-        }
-
-
-
-        .logo{
-
-          font-family:var(--font-display);
-
-          font-weight:680;
-
-          font-size:22px;
-
-          display:flex;
-
-          align-items:center;
-
-          gap:8px;
-
-        }
-
-
-
-        .nav-links{
-
-          display:flex;
-
-          align-items:center;
-
-          gap:32px;
-
-        }
-
-
-
-        .nav-links a{
-
-          font-size:14.5px;
-
-          color:var(--ink-dim);
-
-        }
-
-
-
-        .nav-actions{
-
-          display:flex;
-
-          align-items:center;
-
-          gap:10px;
-
-        }
-
-
-
-        .btn{
-
-          font-size:14.5px;
-
-          font-weight:600;
-
-          padding:10px 20px;
-
-          border-radius:999px;
-
-          border:1px solid transparent;
-
-          display:inline-flex;
-
-          align-items:center;
-
-          gap:6px;
-
-          white-space:nowrap;
-
-        }
-
-
-
-        .btn-solid{
-
-          color:#f5f5f5;
-
-          background:var(--safelight);
-
-        }
-
-
-
-        .btn-ghost{
-
-          border-color:
-          rgba(245,239,226,.18);
-
-        }
-
-
-
-        .btn-lg{
-
-          padding:14px 26px;
-            margin:10px;
-          font-size:15.5px;
-
-        }
-
-
-
-        .lang-toggle{
-
-          display:inline-flex;
-
-          align-items:center;
-
-          gap:6px;
-
-          padding:13px 16px;
-
-          border-radius:999px;
-
-          border:1px solid rgba(218, 193, 189, 0.35);
-
-          background:rgb(190, 212, 172);
-
-          font-size:13.5px;
-
-          font-weight:600;
-          color:rgb(0, 0, 0);
-          font-family:'Inter','Noto Sans JP',sans-serif;
-
-          line-height:1;
-
-          white-space:nowrap;
-
-          transition:background .15s ease;
-
-        }
-
-
-        .lang-toggle:hover{
-
-          background:rgba(232,73,45,.16);
-
-        }
-
-
-
-        .menu-checkbox{
-
-          display:none;
-
-        }
-
-
-        .menu-label{
-
-          display:none;
-
-        }
-
-
-
-        .mobile-panel{
-
-          display:none;
-
-        }
-
-
-
-        /* HERO */
-
-
-        .hero{
-
-          padding:84px 0 56px;
-
-        }
-
-
-
-        .hero-grid{
-
-          display:grid;
-
-          gap:20px;
-
-          text-align:center;
-
-          max-width:760px;
-
-          margin:auto;
-
-        }
-
-
-
-        .eyebrow{
-
-          font-family:var(--font-mono);
-
-          font-size:12.5px;
-
-          letter-spacing:.14em;
-
-          text-transform:uppercase;
-
-          color:var(--safelight);
-
-        }
-
-
-
-        .hero h1{
-
-          font-family:var(--font-display);
-
-          font-weight:560;
-
-          font-size:clamp(30px,6.4vw,50px);
-
-          line-height:1.15;
-
-          margin:6px 0;
-
-        }
-
-
-
-        .hero h1 em{
-
-          font-style:italic;
-         font-size:clamp(30px,6.4vw,50px);
-           color:black;
-
-        }
-
-
-
-        .hero p.lede{
-
-          font-size:18px;
-
-          color:var(--ink-dim);
-
-          max-width:560px;
-
-          margin:auto;
-
-        }
-
-
-
-        .hero-cta{
-
-          display:flex;
-
-          justify-content:center;
-
-          gap:14px;
-
-          margin-top:10px;
-
-          flex-wrap:wrap;
-
-        }
-
-
-
-        .fineprint{
-
-          font-size:12px;
-
-          margin-top:5px;
-
-        }
-
-        .demo {
-
-          margin:56px auto 0;
-
-          max-width:880px;
-
-          background:
-          linear-gradient(180deg,var(--panel),#7bc1ce);
-
-          border-radius:var(--radius-lg);
-
-          padding:22px;
-
-        }
-
-
-
-        .demo-search{
-
-          display:flex;
-
-          align-items:center;
-
-          gap:10px;
-
-          background:var(--base-2);
-
-          border-radius:999px;
-
-          padding:13px 20px;
-
-          margin-bottom:18px;
-
-        }
-
-
-
-        .demo-search-text{
-
-          color:white;
-
-          font-family:var(--font-mono);
-
-        }
-
-
-
-        .contact-grid{
-
-          display:grid;
-
-          grid-template-columns:repeat(6,1fr);
-
-          gap:10px;
-
-        }
-
-
-
-        .tile{
-
-          aspect-ratio:1;
-
-          border-radius:10px;
-
-          display:flex;
-
-          justify-content:center;
-
-          align-items:center;
-
-          opacity:.35;
-
-        }
-
-
-
-        .tile svg{
-
-          color:white;
-
-        }
-
-
-
-        section{
-
-          position:relative;
-
-        }
-
-
-
-        .section-pad{
-
-          padding:96px 0;
-
-        }
-
-
-
-        .section-head{
-
-          text-align:center;
-
-          max-width:560px;
-
-          margin:0 auto 52px;
-
-        }
-
-
-
-        .section-head h2{
-
-          font-family:var(--font-display);
-
-          font-size:42px;
-
-        }
-
-
-        #about .section-head{
-
-          max-width:720px;
-
-          text-align:left;
-
-        }
-
-
-        #about .section-head .eyebrow{
-
-          display:block;
-
-        }
-
-
-        #about .section-head h2{
-
-          font-size:34px;
-
-          margin:8px 0 18px;
-
-        }
-
-
-        #about .section-head p{
-
-          font-size:16px;
-
-          line-height:1.85;
-
-          color:var(--ink-dim);
-
-          margin:0 0 16px;
-
-        }
-
-
-        .privacy-points{
-
-          list-style:none;
-
-          margin:24px 0 0;
-
-          padding:0;
-
-          display:grid;
-
-          gap:12px;
-
-          text-align:left;
-
-          max-width:420px;
-
-          margin-left:auto;
-
-          margin-right:auto;
-
-        }
-
-
-        .privacy-points li{
-
-          display:flex;
-
-          align-items:center;
-
-          gap:10px;
-
-          background:var(--panel);
-
-          border-radius:var(--radius-md);
-
-          padding:14px 18px;
-
-          font-size:14.5px;
-
-        }
-
-
-        .privacy-points li svg{
-
-          flex-shrink:0;
-
-          color:var(--sand);
-
-        }
-
-
-        .contact-email{
-
-          display:inline-flex;
-
-          align-items:center;
-
-          gap:8px;
-
-          margin-top:20px;
-
-          font-size:16px;
-
-          font-weight:600;
-
-          padding:12px 22px;
-
-          border-radius:999px;
-
-          background:var(--safelight);
-
-          color:#f5f5f5;
-
-        }
-
-
-
-        .page-section{
-
-          min-height:70vh;
-
-          padding-top:56px;
-
-        }
-
-
-        .back-link{
-
-          display:inline-flex;
-
-          align-items:center;
-
-          gap:6px;
-
-          background:none;
-
-          border:none;
-
-          color:var(--ink-dim);
-
-          font-size:14px;
-
-          font-weight:600;
-
-          font-family:inherit;
-
-          padding:8px 0;
-
-          margin-bottom:36px;
-
-        }
-
-
-        .back-link:hover{
-
-          text-decoration:underline;
-
-        }
-
-
-
-        .features{
-
-          display:grid;
-
-          grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-          gap:18px;
-
-        }
-
-
-
-        .feature-card{
-
-          background:var(--panel);
-
-          border-radius:var(--radius-md);
-
-          padding:26px 22px;
-
-        }
-
-
-
-        .feature-icon{
-
-          width:40px;
-
-          height:40px;
-
-          display:flex;
-
-          align-items:center;
-
-          justify-content:center;
-
-          border-radius:10px;
-
-        }
-
-
-
-        .frames{
-
-          display:grid;
-
-          grid-template-columns:repeat(3,1fr);
-
-          background:var(--base-2);
-
-          border-radius:var(--radius-lg);
-
-          overflow:hidden;
-
-        }
-
-
-
-        .frame{
-
-          padding:40px 30px;
-
-        }
-
-
-
-        .storage-banner{
-
-          background:
-
-          linear-gradient(135deg,#b2e9a7,#88bfcf);
-
-          border-radius:var(--radius-lg);
-
-          padding:56px 48px;
-
-          display:flex;
-
-          justify-content:space-between;
-
-          align-items:center;
-
-        }
-
-
-
-        .storage-number{
-
-          font-size:88px;
-
-          font-family:var(--font-display);
-
-          color:white;
-
-        }
-
-
-
-        .final-cta{
-
-          text-align:center;
-
-          padding:100px 0;
-
-        }
-
-
-
-        footer{
-
-          border-top:1px solid rgba(0,0,0,.1);
-
-          padding:40px 0;
-
-        }
-
-
-
-        .footer-inner{
-
-          display:flex;
-
-          justify-content:space-between;
-
-          align-items:center;
-
-          flex-wrap:wrap;
-
-        }
-
-
-
-        .footer-links{
-
-          display:flex;
-
-          gap:24px;
-
-        }
-
-
-
-        @media(max-width:880px){
-
-          .features{
-
-            grid-template-columns:repeat(2,1fr);
-
-          }
-
-
-          .frames{
-
-            grid-template-columns:1fr;
-
-          }
-
-
-          .contact-grid{
-
-            grid-template-columns:repeat(4,1fr);
-
-          }
-
-        }
-
-
-
-        @media(max-width:620px){
-
-
-          .nav-links{
-
-            display:none;
-
-          }
-
-
-          .features{
-
-            grid-template-columns:1fr;
-
-          }
-
-
-          .storage-banner{
-
-            flex-direction:column;
-
-            text-align:center;
-
-          }
-
-
-          #about .section-head,
-
-          #privacy .section-head,
-
-          #contact .section-head{
-
-            text-align:center;
-
-          }
-
-
-        }
-
-
-        @media(max-width:620px){
-
-          .page.lang-ja .hero h1{
-
-            font-size:clamp(30px,9vw,48px);
-
-            line-height:1.3;
-
-          }
-
-
-          .page.lang-ja .hero p.lede{
-
-            font-size:16px;
-
-          }
-
-
-          .page.lang-ja .section-head h2{
-
-            font-size:26px;
-
-            line-height:1.5;
-
-          }
-
-
-          .page.lang-ja #about .section-head h2{
-
-            font-size:24px;
-
-          }
-
-
-          .page.lang-ja .section-head p,
-
-          .page.lang-ja #about .section-head p{
-
-            font-size:15px;
-
-            line-height:1.9;
-
-          }
-
-
-          .page.lang-ja .feature-card h3,
-
-          .page.lang-ja .frame h3{
-
-            font-size:16px;
-
-            line-height:1.5;
-
-          }
-
-
-          .page.lang-ja .feature-card p,
-
-          .page.lang-ja .frame p{
-
-            font-size:14px;
-
-            line-height:1.8;
-
-          }
-
-
-          .page.lang-ja .contact-email{
-
-            font-size:15px;
-
-            padding:12px 18px;
-
-            word-break:break-all;
-
-          }
-
-        }
-
-
-      `}</style>
-
-
-
 
       <input
         type="checkbox"
@@ -1564,7 +618,7 @@ export default function RollHome() {
 
             <img
               style={{width:"50%"}}
-              src="/dots.gif"
+              src="/Ai-brain.gif"
             />
 
           </div>
@@ -1721,69 +775,18 @@ export default function RollHome() {
             </div>
 
 
+            <p className="fineprint">
+              {t.hero.fine}
+            </p>
+
 
           </div>
 
 
 
+          <div className="hero-visual-wrap">
 
-
-          <div className="demo">
-
-
-            <div className="demo-search">
-
-              <Search size={18}/>
-
-              <span className="demo-search-text">
-
-                {t.hero.searchDemo}
-
-              </span>
-
-
-            </div>
-
-
-
-
-            <div className="contact-grid">
-
-
-              {
-                TILES.map(tile=>{
-
-                  const Icon=tile.icon;
-
-
-                  return (
-
-                    <div
-
-                      key={tile.id}
-
-                      className="tile"
-
-                      style={{
-                        background:
-                        `hsl(${tile.hue})`
-                      }}
-
-                    >
-
-                      <Icon/>
-
-                    </div>
-
-                  )
-
-                })
-
-              }
-
-
-            </div>
-
+            <CloudScene t={t} />
 
           </div>
 
@@ -1917,6 +920,35 @@ export default function RollHome() {
 
           </div>
 
+
+        </div>
+
+      </section>
+
+
+      <section id="storage" className="section-pad">
+
+        <div className="wrap">
+
+          <div className="storage-banner">
+
+            <div>
+              <span className="storage-number">5</span>
+              <span style={{fontSize:20, fontWeight:600, marginLeft:8, color:"#fff"}}>
+                {t.storage.unit}
+              </span>
+            </div>
+
+            <div style={{maxWidth:360, textAlign:"right"}}>
+              <p style={{fontWeight:700, color:"#fff", margin:"0 0 6px"}}>
+                {t.storage.label}
+              </p>
+              <p style={{fontSize:14, color:"rgba(255,255,255,.9)", margin:0}}>
+                {t.storage.desc}
+              </p>
+            </div>
+
+          </div>
 
         </div>
 
