@@ -497,15 +497,17 @@ section {
   background: var(--panel);
   border-radius: var(--radius-md);
   padding: 26px 22px;
-  animation: card ease 2s forwards;
 }
-@keyframes card {
-to{
 .feature-card:hover{
-background-color: #e47ddf;
+  animation: card ease 1s forwards;
 
 }
-}
+@keyframes card{
+    to{
+        background-color: #efa9f8;
+        cursor: pointer;
+        transform: translateY(-20px);
+    }
 }
 
 .feature-icon {
@@ -542,6 +544,18 @@ background-color: #e47ddf;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.storage-banner:hover{
+      background: linear-gradient(135deg, #bfe0fb, #8fc2ee);
+
+    animation: gb ease 1s forwards;
+}
+@keyframes gb{
+    to{
+        transform: translateY(-20px);
+        scale: 1.1;
+        background:linear-gradient(to right, rgb(133, 133, 223),rgb(180, 172, 172)) ;
+    }
 }
 
 .storage-number {
