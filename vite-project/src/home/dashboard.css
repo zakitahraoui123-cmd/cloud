@@ -487,8 +487,7 @@ font-weight: 200;
 }
 .brain-img{
 
-width: 99.7%;
-height:100dvh ;
+object-fit: cover;
 
 
 }
