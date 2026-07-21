@@ -6,15 +6,15 @@ function Welcome(){
     const navigate=useNavigate(null)
     setTimeout(()=>{
         navigate('/dash')
-    },1400)
+    },122400)
 return (<div className='body-x'>
-    <div className="big-box-x">
-    <div className='video-box'>
-    <img className='video' src='loading.gif' />
+    
+    
+    <img className='image-welcom' src='loading.gif' />
 
-    </div>
+    
 
-</div>
+
 
 </div>)
 }
