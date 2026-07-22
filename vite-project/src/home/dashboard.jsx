@@ -43,16 +43,7 @@ import {io} from 'socket.io-client';
              const formatRef=useRef(new FormData());
              const socketRef=useRef(null)
 
-             //this  good idea but need to be in better way
-// useEffect(()=>{
-//       let count =1;
-// setInterval(() => {
-//   count++;
-//           let wel=['','','hi','how ar u','im zaki web developer this is just welcom','ai cloud is way to find your images using ai']
-// console.log(count)
-// setwelcom(wel[count])
-// },4000)
-// },[])
+      
       useEffect(()=>{
       if(!translate){
         setdeletecancel({
@@ -67,11 +58,10 @@ import {io} from 'socket.io-client';
 
 
        useEffect(()=>{
-      socketRef.current=io('/')
+      socketRef.current=io('http://localhost:4000')
    
       
     socketRef.current.on('user data',(data)=>{
-      console.log('we get the user data in the socket',data);
       if(data){
              
                   
@@ -134,7 +124,6 @@ import {io} from 'socket.io-client';
          videoref.current.muted=true
        videoref.current.pause();
         videoref.current.currentTime = 0;
-
             
     }
     function closefunc(){
@@ -167,10 +156,14 @@ if(checking===-1){
         })
       )
        
-   for(let i=0 ;i<compressedFile.length;i++){
-        formatRef.current.append('picture',compressedFile[i])
+   
+        compressedFile.forEach(item=>{
+          formatRef.current.append('picture',item)
+        })
 
-    }
+    
+            console.log('format',formatRef.current.getAll('picture'))
+
     }catch(error){
             console.error('error in promise',error)
 
@@ -185,7 +178,6 @@ if(checking===-1){
     },[file])
 
 
-
   
    
 
@@ -197,6 +189,7 @@ if(checking===-1){
         </>)
     }
 
+
    
     async function getpic(){
        if(!userInfo?.id){
@@ -205,7 +198,6 @@ if(checking===-1){
        if(notimage===true) return
      try {
             socketRef.current?.emit('userid',userInfo.id)
-console.log(formatRef.current.getAll('picture'))
           setscan(true)
            const respond= await axios.post(`/api/upload/${userInfo.id}`,formatRef.current,{
             withCredentials:true,
@@ -238,6 +230,8 @@ console.log(formatRef.current.getAll('picture'))
     }
     function inputfile(e){
      setfile(pre=>[...pre,...e.target.files])
+           formatRef.current.delete('picture')
+
      
     }
 
@@ -273,8 +267,10 @@ const url=fileVlx.map((item)=>{
 function deletePictureFromUpload(e){
   setnotimage(false)
 const currentImg=e.currentTarget.name
+console.log('current redy to delete',currentImg)
 setfile(Object.values(file).filter(item=>( item.name!==currentImg)
 ))
+formatRef.current.delete('picture')
 }
 
 function galeryOfpictures(){
@@ -329,7 +325,6 @@ async function deleteimageInbackend(){
 
 async function deleteinTheback(){
     if (!deleteimage) return 
-    console.log('delete',deleteimage)
    try{ const res =await axios.delete('/api/delete',{
         
         data:{id:userInfo.id,deleteimage},
@@ -352,6 +347,7 @@ async function deleteinTheback(){
     }
 
 }
+console.log('file here',file)
 return(<>
 
 <motion.div
@@ -375,6 +371,7 @@ return(<>
           <img className='data-cloud-icon' src='data-cloud.png' />
         CLICK UPLOAD</button>
         <div className='video-up-div'>
+        
               <video
               ref={videoref}
         className='video-up'
@@ -475,7 +472,7 @@ return(<>
              <p className={'images-word'}>{translate?japanese[1].jp:'All Pictures'}</p>
                    <CountUp
                     from={0}
-                    to={userInfo.allImg.length?userInfo.allImg.length:0}
+                    to={userInfo.allImg?userInfo.allImg.length:0}
                     separator=","
                     direction="up"
                     duration={1}
