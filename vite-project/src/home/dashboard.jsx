@@ -58,7 +58,7 @@ import {io} from 'socket.io-client';
 
 
        useEffect(()=>{
-      socketRef.current=io('http://localhost:4000')
+      socketRef.current=io('/')
    
       
     socketRef.current.on('user data',(data)=>{
